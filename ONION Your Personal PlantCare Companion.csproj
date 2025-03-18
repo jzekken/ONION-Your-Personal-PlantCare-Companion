@@ -10,14 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialSkin.2" Version="2.3.1" />
-    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.42.0" />
+    <PackageReference Include="Google.Apis" Version="1.69.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="ReaLTaiizor" Version="3.8.1.1" />
-    <PackageReference Include="Uno.WinUI" Version="5.6.81" />
-    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Chat\Out.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchControl));
-            textBox1 = new TextBox();
+            txtSearch = new TextBox();
             panel1 = new Panel();
             button1 = new Button();
             panel2 = new Panel();
@@ -45,6 +45,7 @@
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
+            lstResults = new ListView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -53,19 +54,19 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // textBox1
+            // txtSearch
             // 
-            textBox1.Location = new Point(490, 21);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(434, 34);
-            textBox1.TabIndex = 0;
-            textBox1.TextChanged += textBox1_TextChanged;
+            txtSearch.Location = new Point(490, 21);
+            txtSearch.Multiline = true;
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(434, 34);
+            txtSearch.TabIndex = 0;
+            txtSearch.TextChanged += textBox1_TextChanged;
             // 
             // panel1
             // 
             panel1.Controls.Add(button1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtSearch);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -80,9 +81,11 @@
             button1.TabIndex = 1;
             button1.Text = "Search";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // panel2
             // 
+            panel2.Controls.Add(lstResults);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label2);
@@ -225,6 +228,14 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // lstResults
+            // 
+            lstResults.Location = new Point(384, 40);
+            lstResults.Name = "lstResults";
+            lstResults.Size = new Size(575, 505);
+            lstResults.TabIndex = 3;
+            lstResults.UseCompatibleStateImageBehavior = false;
+            // 
             // SearchControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -246,7 +257,7 @@
 
         #endregion
 
-        private TextBox textBox1;
+        private TextBox txtSearch;
         private Panel panel1;
         private Button button1;
         private Panel panel2;
@@ -262,5 +273,6 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
+        private ListView lstResults;
     }
 }

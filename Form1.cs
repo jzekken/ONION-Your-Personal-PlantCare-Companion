@@ -1,4 +1,4 @@
-using Microsoft.CognitiveServices.Speech;
+
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {

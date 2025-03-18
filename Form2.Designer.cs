@@ -236,6 +236,7 @@
             // 
             // mainPanel
             // 
+            mainPanel.AutoScroll = true;
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(250, 44);
             mainPanel.Name = "mainPanel";
