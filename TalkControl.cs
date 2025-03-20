@@ -20,6 +20,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public TalkControl()
         {
             InitializeComponent();
+            
         }
 
         private void inc1_Load(object sender, EventArgs e)
@@ -57,7 +58,10 @@ namespace ONION_Your_Personal_PlantCare_Companion
             panelContainer.Invoke((MethodInvoker)delegate
             {
                 bubble.Anchor = AnchorStyles.Left;
-                panelContainer.Controls.Add(bubble);
+                panelContainer.RowCount++;
+                panelContainer.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                panelContainer.Controls.Add(bubble, 0, panelContainer.RowCount - 1);
+                panelContainer.PerformLayout();
                 panelContainer.ScrollControlIntoView(bubble);
             });
         }
@@ -71,7 +75,10 @@ namespace ONION_Your_Personal_PlantCare_Companion
             panelContainer.Invoke((MethodInvoker)delegate
             {
                 bubble.Anchor = AnchorStyles.Right;
-                panelContainer.Controls.Add(bubble);
+                panelContainer.RowCount++;
+                panelContainer.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                panelContainer.Controls.Add(bubble, 1, panelContainer.RowCount - 1);
+                panelContainer.PerformLayout();
                 panelContainer.ScrollControlIntoView(bubble);
             });
         }
@@ -99,7 +106,9 @@ namespace ONION_Your_Personal_PlantCare_Companion
                     return $"Error: {response.StatusCode} - {jsonResponse}";
 
                 dynamic result = JsonConvert.DeserializeObject(jsonResponse);
-                return result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
+                string message = result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
+                message = System.Text.RegularExpressions.Regex.Replace(message, @"[*_`]", "");
+                return message;
             }
             catch (Exception ex)
             {

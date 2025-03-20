@@ -1,17 +1,70 @@
 
-
+using Vosk;
+using NAudio.Wave;
 namespace ONION_Your_Personal_PlantCare_Companion
 {
     public partial class Form1 : Form
     {
         private int clickCount = 0;
-        
+        private WaveInEvent waveIn;
+        private VoskRecognizer recognizer;
+        private Model model;
+
         public Form1()
         {
             InitializeComponent();
-            
+            InitializeVoiceRecognition();
         }
-        
+        private void InitializeVoiceRecognition()
+        {
+            try
+            {
+                // Load Vosk model from the VoskModel folder
+                model = new Model(Path.Combine(Application.StartupPath, "VoskModel"));
+
+                // Set up microphone input
+                waveIn = new WaveInEvent
+                {
+                    DeviceNumber = 0,
+                    WaveFormat = new WaveFormat(16000, 1)
+                };
+
+                recognizer = new VoskRecognizer(model, 16000.0f);
+
+                waveIn.DataAvailable += (sender, e) =>
+                {
+                    if (recognizer.AcceptWaveform(e.Buffer, e.BytesRecorded))
+                    {
+                        string result = recognizer.Result();
+                        Console.WriteLine($"Recognized: {result}");
+
+                        if (result.Contains("hey onion")||result.Contains("wake up") || result.Contains("without you cover"))
+                        {
+                            // Open the next form
+                            Invoke(new Action(() =>
+                            {
+                                var nextForm = new Form2();
+                                nextForm.Show();
+                                this.Hide();
+                            }));
+                        }
+                    }
+                };
+
+                waveIn.StartRecording();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing voice recognition: {ex.Message}");
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            waveIn?.StopRecording();
+            waveIn?.Dispose();
+            model?.Dispose();
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();

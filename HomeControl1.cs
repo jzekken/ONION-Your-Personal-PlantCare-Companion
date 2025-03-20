@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot.WindowsForms;
 
 
 namespace ONION_Your_Personal_PlantCare_Companion
@@ -16,8 +20,9 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public HomeControl1()
         {
             InitializeComponent();
-           
+            
         }
+       
     }
      
     }

@@ -16,5 +16,10 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

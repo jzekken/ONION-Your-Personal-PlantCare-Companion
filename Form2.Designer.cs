@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             panel1 = new Panel();
+            minbtn = new Button();
+            maxbtn = new Button();
             button7 = new Button();
             label1 = new Label();
             panel2 = new Panel();
@@ -48,13 +50,42 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(180, 213, 137);
+            panel1.Controls.Add(minbtn);
+            panel1.Controls.Add(maxbtn);
             panel1.Controls.Add(button7);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1262, 44);
+            panel1.Size = new Size(1280, 44);
             panel1.TabIndex = 0;
+            // 
+            // minbtn
+            // 
+            minbtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            minbtn.FlatAppearance.BorderSize = 0;
+            minbtn.FlatStyle = FlatStyle.Flat;
+            minbtn.Image = (Image)resources.GetObject("minbtn.Image");
+            minbtn.Location = new Point(1175, -1);
+            minbtn.Name = "minbtn";
+            minbtn.Size = new Size(30, 32);
+            minbtn.TabIndex = 1;
+            minbtn.UseVisualStyleBackColor = true;
+            minbtn.Click += minbtn_Click;
+            // 
+            // maxbtn
+            // 
+            maxbtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            maxbtn.FlatAppearance.BorderSize = 0;
+            maxbtn.FlatStyle = FlatStyle.Flat;
+            maxbtn.Image = (Image)resources.GetObject("maxbtn.Image");
+            maxbtn.Location = new Point(1211, 9);
+            maxbtn.Name = "maxbtn";
+            maxbtn.Size = new Size(30, 32);
+            maxbtn.TabIndex = 1;
+            maxbtn.UseVisualStyleBackColor = true;
+            maxbtn.Click += maxbtn_Click;
             // 
             // button7
             // 
@@ -62,7 +93,7 @@
             button7.FlatAppearance.BorderSize = 0;
             button7.FlatStyle = FlatStyle.Flat;
             button7.Image = (Image)resources.GetObject("button7.Image");
-            button7.Location = new Point(1229, 12);
+            button7.Location = new Point(1247, 12);
             button7.Name = "button7";
             button7.Size = new Size(30, 25);
             button7.TabIndex = 1;
@@ -82,6 +113,7 @@
             // 
             // panel2
             // 
+            panel2.BackColor = Color.FromArgb(224, 239, 204);
             panel2.Controls.Add(aboutbtn);
             panel2.Controls.Add(gardenbtn);
             panel2.Controls.Add(listbtn);
@@ -93,7 +125,7 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 44);
             panel2.Name = "panel2";
-            panel2.Size = new Size(250, 658);
+            panel2.Size = new Size(250, 676);
             panel2.TabIndex = 1;
             // 
             // aboutbtn
@@ -240,18 +272,20 @@
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(250, 44);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(1012, 658);
+            mainPanel.Size = new Size(1030, 676);
             mainPanel.TabIndex = 2;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1262, 702);
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(1280, 720);
             ControlBox = false;
             Controls.Add(mainPanel);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(800, 600);
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
@@ -277,5 +311,7 @@
         private Button homebtn;
         private Button button7;
         private Panel mainPanel;
+        private Button minbtn;
+        private Button maxbtn;
     }
 }

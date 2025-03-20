@@ -32,12 +32,13 @@
             panel1 = new Panel();
             btnSend = new Button();
             txtUserInput = new TextBox();
-            panelContainer = new FlowLayoutPanel();
+            panelContainer = new TableLayoutPanel();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(228, 239, 231);
             panel1.Controls.Add(btnSend);
             panel1.Controls.Add(txtUserInput);
             panel1.Dock = DockStyle.Bottom;
@@ -48,6 +49,7 @@
             // 
             // btnSend
             // 
+            btnSend.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSend.BackColor = Color.Transparent;
             btnSend.FlatAppearance.BorderSize = 0;
             btnSend.FlatStyle = FlatStyle.Flat;
@@ -61,6 +63,7 @@
             // 
             // txtUserInput
             // 
+            txtUserInput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtUserInput.Location = new Point(108, 17);
             txtUserInput.Multiline = true;
             txtUserInput.Name = "txtUserInput";
@@ -70,10 +73,17 @@
             // panelContainer
             // 
             panelContainer.AutoScroll = true;
+            panelContainer.AutoSize = true;
+            panelContainer.BackColor = Color.FromArgb(228, 239, 231);
+            panelContainer.ColumnCount = 2;
+            panelContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            panelContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             panelContainer.Dock = DockStyle.Fill;
-            panelContainer.FlowDirection = FlowDirection.RightToLeft;
             panelContainer.Location = new Point(0, 0);
             panelContainer.Name = "panelContainer";
+            panelContainer.Padding = new Padding(5, 0, 5, 0);
+            panelContainer.RowCount = 1;
+            panelContainer.RowStyles.Add(new RowStyle());
             panelContainer.Size = new Size(1012, 533);
             panelContainer.TabIndex = 1;
             // 
@@ -88,6 +98,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -95,6 +106,6 @@
         private Panel panel1;
         private Button btnSend;
         private TextBox txtUserInput;
-        private FlowLayoutPanel panelContainer;
+        private TableLayoutPanel panelContainer;
     }
 }

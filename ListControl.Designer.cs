@@ -28,98 +28,91 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListControl));
-            pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            plantdata1 = new Plantdata();
+            plantdata2 = new Plantdata();
+            plantdata3 = new Plantdata();
+            plantdata4 = new Plantdata();
+            plantdata5 = new Plantdata();
+            plantdata6 = new Plantdata();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // pictureBox1
+            // flowLayoutPanel1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(77, 62);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(169, 144);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            flowLayoutPanel1.BackColor = Color.FromArgb(228, 239, 231);
+            flowLayoutPanel1.Controls.Add(plantdata1);
+            flowLayoutPanel1.Controls.Add(plantdata2);
+            flowLayoutPanel1.Controls.Add(plantdata3);
+            flowLayoutPanel1.Controls.Add(plantdata4);
+            flowLayoutPanel1.Controls.Add(plantdata5);
+            flowLayoutPanel1.Controls.Add(plantdata6);
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(1012, 658);
+            flowLayoutPanel1.TabIndex = 2;
             // 
-            // pictureBox2
+            // plantdata1
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(77, 315);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(169, 144);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            plantdata1.Location = new Point(3, 3);
+            plantdata1.Name = "plantdata1";
+            plantdata1.Size = new Size(286, 320);
+            plantdata1.TabIndex = 0;
             // 
-            // label1
+            // plantdata2
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(281, 62);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
+            plantdata2.Location = new Point(295, 3);
+            plantdata2.Name = "plantdata2";
+            plantdata2.Size = new Size(286, 320);
+            plantdata2.TabIndex = 0;
             // 
-            // label2
+            // plantdata3
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(281, 91);
-            label2.Name = "label2";
-            label2.Size = new Size(451, 160);
-            label2.TabIndex = 1;
-            label2.Text = resources.GetString("label2.Text");
+            plantdata3.Location = new Point(587, 3);
+            plantdata3.Name = "plantdata3";
+            plantdata3.Size = new Size(286, 320);
+            plantdata3.TabIndex = 0;
             // 
-            // label3
+            // plantdata4
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(281, 315);
-            label3.Name = "label3";
-            label3.Size = new Size(50, 20);
-            label3.TabIndex = 1;
-            label3.Text = "label1";
+            plantdata4.Location = new Point(3, 329);
+            plantdata4.Name = "plantdata4";
+            plantdata4.Size = new Size(286, 320);
+            plantdata4.TabIndex = 0;
             // 
-            // label4
+            // plantdata5
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(281, 344);
-            label4.Name = "label4";
-            label4.Size = new Size(451, 160);
-            label4.TabIndex = 1;
-            label4.Text = resources.GetString("label4.Text");
+            plantdata5.Location = new Point(295, 329);
+            plantdata5.Name = "plantdata5";
+            plantdata5.Size = new Size(286, 320);
+            plantdata5.TabIndex = 0;
+            // 
+            // plantdata6
+            // 
+            plantdata6.Location = new Point(587, 329);
+            plantdata6.Name = "plantdata6";
+            plantdata6.Size = new Size(286, 320);
+            plantdata6.TabIndex = 0;
             // 
             // ListControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label4);
-            Controls.Add(label2);
-            Controls.Add(label3);
-            Controls.Add(label1);
-            Controls.Add(pictureBox2);
-            Controls.Add(pictureBox1);
+            Controls.Add(flowLayoutPanel1);
             Name = "ListControl";
             Size = new Size(1012, 658);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Plantdata plantdata1;
+        private Plantdata plantdata2;
+        private Plantdata plantdata3;
+        private Plantdata plantdata4;
+        private Plantdata plantdata5;
+        private Plantdata plantdata6;
     }
 }
