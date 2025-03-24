@@ -14,7 +14,9 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             InitializeComponent();
             InitializeVoiceRecognition();
+            pictureBox2.Visible = false; // Ensure the PictureBox is initially hidden
         }
+
         private void InitializeVoiceRecognition()
         {
             try
@@ -31,21 +33,31 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
                 recognizer = new VoskRecognizer(model, 16000.0f);
 
-                waveIn.DataAvailable += (sender, e) =>
+                waveIn.DataAvailable += async (sender, e) =>
                 {
                     if (recognizer.AcceptWaveform(e.Buffer, e.BytesRecorded))
                     {
                         string result = recognizer.Result();
                         Console.WriteLine($"Recognized: {result}");
 
-                        if (result.Contains("hey onion")||result.Contains("wake up") || result.Contains("without you cover"))
+                        if (result.Contains("hey onion") || result.Contains("wake up") || result.Contains("without you cover"))
                         {
+                            // Show the wake-up animation
+                            Invoke(new Action(() =>
+                            {
+                                pictureBox2.Visible = true;
+                            }));
+
+                            // Wait for the animation to complete (e.g., 2 seconds)
+                            await Task.Delay(2000);
+
                             // Open the next form
                             Invoke(new Action(() =>
                             {
                                 var nextForm = new Form2();
                                 nextForm.Show();
                                 this.Hide();
+                                StopVoiceRecognition();
                             }));
                         }
                     }
@@ -59,26 +71,39 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void StopVoiceRecognition()
         {
             waveIn?.StopRecording();
             waveIn?.Dispose();
             model?.Dispose();
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            StopVoiceRecognition();
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             clickCount++;
 
             if (clickCount == 1)
             {
+                // Show the wake-up animation
+                pictureBox2.Visible = true;
+
+                // Wait for the animation to complete (e.g., 2 seconds)
+                await Task.Delay(2000);
+
                 Form2 newform = new Form2();
                 newform.Show();
                 this.Hide();
+                StopVoiceRecognition();
             }
         }
     }

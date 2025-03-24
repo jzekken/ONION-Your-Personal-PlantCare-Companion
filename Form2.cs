@@ -74,11 +74,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 LoadUserControl(new TalkControl(), talkbtn);  // Open the Talk tab
             }
-            else if (command.Contains("open home"))
+            else if (command.Contains("open home") || command.Contains("home"))
             {
                 LoadUserControl(new HomeControl1(), homebtn);
             }
-            else if (command.Contains("open search"))
+            else if (command.Contains("open search") || command.Contains("search"))
             {
                 LoadUserControl(new SearchControl(), searchbtn);
             }
@@ -90,26 +90,26 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 LoadUserControl(new ListControl(), listbtn);
             }
-            else if (command.Contains("open garden")||command.Contains("garden"))
+            else if (command.Contains("open garden") || command.Contains("garden"))
             {
                 LoadUserControl(new GardenControl(), gardenbtn);
             }
-            else if (command.Contains("open about"))
+            else if (command.Contains("open about") || command.Contains("about"))
             {
                 LoadUserControl(new AboutControl(), aboutbtn);
             }
-            else if (command.Contains("exit"))
+            else if (command.Contains("exit") || command.Contains("close"))
             {
                 Application.Exit();
             }
-            else if (command.Contains("minimize"))
+            else if (command.Contains("minimize") || command.Contains("reduce"))
             {
                 this.WindowState = FormWindowState.Minimized;
             }
-            else if (command.Contains("maximize"))
+            else if (command.Contains("maximize") || command.Contains("expand"))
             {
                 this.WindowState = FormWindowState.Maximized;
-            }else if(command.Contains("normal"))
+            }else if(command.Contains("normal") || command.Contains("return"))
             {
                 this.WindowState = FormWindowState.Normal;
             }
