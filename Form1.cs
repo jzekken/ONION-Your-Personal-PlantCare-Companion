@@ -49,7 +49,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             }));
 
                             // Wait for the animation to complete (e.g., 2 seconds)
-                            await Task.Delay(2000);
+                            await Task.Delay(4500);
 
                             // Open the next form
                             Invoke(new Action(() =>
@@ -98,7 +98,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 pictureBox2.Visible = true;
 
                 // Wait for the animation to complete (e.g., 2 seconds)
-                await Task.Delay(2000);
+                await Task.Delay(4500);
 
                 Form2 newform = new Form2();
                 newform.Show();
