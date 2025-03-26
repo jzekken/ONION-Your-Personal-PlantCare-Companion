@@ -29,76 +29,107 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Plantdata));
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            picPlant = new PictureBox();
+            lblPlantName = new Label();
+            lblWateringFrequency = new Label();
+            lblFertilizationSchedule = new Label();
+            btnUpdate = new Button();
+            btnDelete = new Button();
+            ((System.ComponentModel.ISupportInitialize)picPlant).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // picPlant
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 5);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(274, 221);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            picPlant.Image = (Image)resources.GetObject("picPlant.Image");
+            picPlant.Location = new Point(3, 5);
+            picPlant.Name = "picPlant";
+            picPlant.Size = new Size(274, 221);
+            picPlant.SizeMode = PictureBoxSizeMode.StretchImage;
+            picPlant.TabIndex = 0;
+            picPlant.TabStop = false;
             // 
-            // label1
+            // lblPlantName
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 229);
-            label1.Name = "label1";
-            label1.Size = new Size(66, 25);
-            label1.TabIndex = 1;
-            label1.Text = "Plant: ";
+            lblPlantName.AutoSize = true;
+            lblPlantName.BackColor = Color.Transparent;
+            lblPlantName.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPlantName.Location = new Point(3, 229);
+            lblPlantName.Name = "lblPlantName";
+            lblPlantName.Size = new Size(66, 25);
+            lblPlantName.TabIndex = 1;
+            lblPlantName.Text = "Plant: ";
             // 
-            // label2
+            // lblWateringFrequency
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(3, 254);
-            label2.Name = "label2";
-            label2.Size = new Size(188, 25);
-            label2.TabIndex = 1;
-            label2.Text = "Watering Frequency:";
+            lblWateringFrequency.AutoSize = true;
+            lblWateringFrequency.BackColor = Color.Transparent;
+            lblWateringFrequency.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblWateringFrequency.Location = new Point(3, 254);
+            lblWateringFrequency.Name = "lblWateringFrequency";
+            lblWateringFrequency.Size = new Size(188, 25);
+            lblWateringFrequency.TabIndex = 1;
+            lblWateringFrequency.Text = "Watering Frequency:";
             // 
-            // label3
+            // lblFertilizationSchedule
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(3, 279);
-            label3.Name = "label3";
-            label3.Size = new Size(201, 25);
-            label3.TabIndex = 1;
-            label3.Text = "Fertilization Schedule:";
+            lblFertilizationSchedule.AutoSize = true;
+            lblFertilizationSchedule.BackColor = Color.Transparent;
+            lblFertilizationSchedule.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFertilizationSchedule.Location = new Point(3, 279);
+            lblFertilizationSchedule.Name = "lblFertilizationSchedule";
+            lblFertilizationSchedule.Size = new Size(201, 25);
+            lblFertilizationSchedule.TabIndex = 1;
+            lblFertilizationSchedule.Text = "Fertilization Schedule:";
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.BackColor = Color.Transparent;
+            btnUpdate.FlatAppearance.BorderSize = 0;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Image = (Image)resources.GetObject("btnUpdate.Image");
+            btnUpdate.Location = new Point(247, 5);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(30, 25);
+            btnUpdate.TabIndex = 2;
+            btnUpdate.UseVisualStyleBackColor = false;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.Transparent;
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Image = (Image)resources.GetObject("btnDelete.Image");
+            btnDelete.Location = new Point(247, 201);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(30, 25);
+            btnDelete.TabIndex = 2;
+            btnDelete.UseVisualStyleBackColor = false;
             // 
             // Plantdata
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(pictureBox1);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(lblFertilizationSchedule);
+            Controls.Add(lblWateringFrequency);
+            Controls.Add(lblPlantName);
+            Controls.Add(picPlant);
             Name = "Plantdata";
             Size = new Size(280, 315);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            MouseClick += Plantdata_MouseClick;
+            ((System.ComponentModel.ISupportInitialize)picPlant).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private PictureBox pictureBox1;
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private PictureBox picPlant;
+        private Label lblPlantName;
+        private Label lblWateringFrequency;
+        private Label lblFertilizationSchedule;
+        private Button btnUpdate;
+        private Button btnDelete;
     }
 }
