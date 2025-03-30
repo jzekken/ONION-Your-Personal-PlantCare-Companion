@@ -39,6 +39,7 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)picPlantPreview).BeginInit();
             SuspendLayout();
             // 
@@ -130,6 +131,15 @@
             label1.TabIndex = 26;
             label1.Text = "Plant Name:";
             // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(375, 450);
+            panel1.TabIndex = 34;
+            // 
             // AddPlant
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -146,6 +156,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "AddPlant";
             StartPosition = FormStartPosition.CenterScreen;
@@ -167,5 +178,6 @@
         private Label label3;
         private Label label2;
         private Label label1;
+        private Panel panel1;
     }
 }

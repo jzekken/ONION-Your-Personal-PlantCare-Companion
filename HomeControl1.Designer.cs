@@ -213,6 +213,7 @@
             parrotBarGraph1.TextColor = Color.FromArgb(120, 120, 120);
             parrotBarGraph1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             parrotBarGraph1.UnfilledColor = Color.FromArgb(37, 40, 49);
+            parrotBarGraph1.Click += parrotBarGraph1_Click;
             // 
             // panel1
             // 

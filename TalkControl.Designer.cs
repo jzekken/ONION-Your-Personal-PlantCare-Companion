@@ -33,12 +33,14 @@
             btnSend = new Button();
             txtUserInput = new TextBox();
             panelContainer = new TableLayoutPanel();
+            button1 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(228, 239, 231);
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(btnSend);
             panel1.Controls.Add(txtUserInput);
             panel1.Dock = DockStyle.Bottom;
@@ -87,6 +89,18 @@
             panelContainer.Size = new Size(1012, 533);
             panelContainer.TabIndex = 1;
             // 
+            // button1
+            // 
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.Location = new Point(982, 100);
+            button1.Name = "button1";
+            button1.Size = new Size(30, 25);
+            button1.TabIndex = 1;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
+            // 
             // TalkControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -95,6 +109,7 @@
             Controls.Add(panel1);
             Name = "TalkControl";
             Size = new Size(1012, 658);
+            Load += TalkControl_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -107,5 +122,6 @@
         private Button btnSend;
         private TextBox txtUserInput;
         private TableLayoutPanel panelContainer;
+        private Button button1;
     }
 }

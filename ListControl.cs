@@ -32,7 +32,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             try
             {
-                // Use your connection string with the full path
+                
                 myConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Users\\ACER ASPIRE 3\\source\\repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\PlantData.accdb\"");
 
                 string query = @"SELECT Plants.PlantID, Plants.PlantName, Plants.WateringFrequency, Plants.FertilizationSchedule, Plants.PlantImage FROM Plants;";
@@ -90,7 +90,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 };
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //add button
         {
             AddPlant addForm = new AddPlant();
             addForm.ShowDialog();
@@ -117,7 +117,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             FertilizationSchedule = row["FertilizationSchedule"].ToString()
                         };
 
-                        // 🌿 Load the plant image
+                        //Load the plant image
                         if (row["PlantImage"] != DBNull.Value)
                         {
                             byte[] imageBytes = (byte[])row["PlantImage"];
@@ -127,7 +127,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             }
                         }
 
-                        // ✅ Button event handlers
+                        //Button event handlers
                         plantControl.UpdateClicked += (s, e) =>
                         {
                             string plantID = plantControl.PlantID;
@@ -167,7 +167,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             }
                         };
 
-                        // 🌿 Add the plant control
+                        // Add the plant control
                         flowLayoutPanel1.Controls.Add(plantControl);
                     }
                 }

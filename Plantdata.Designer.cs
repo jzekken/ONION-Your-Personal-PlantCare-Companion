@@ -35,6 +35,7 @@
             lblFertilizationSchedule = new Label();
             btnUpdate = new Button();
             btnDelete = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)picPlant).BeginInit();
             SuspendLayout();
             // 
@@ -105,6 +106,15 @@
             btnDelete.TabIndex = 2;
             btnDelete.UseVisualStyleBackColor = false;
             // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(280, 315);
+            panel1.TabIndex = 3;
+            // 
             // Plantdata
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -115,9 +125,9 @@
             Controls.Add(lblWateringFrequency);
             Controls.Add(lblPlantName);
             Controls.Add(picPlant);
+            Controls.Add(panel1);
             Name = "Plantdata";
             Size = new Size(280, 315);
-            MouseClick += Plantdata_MouseClick;
             ((System.ComponentModel.ISupportInitialize)picPlant).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -131,5 +141,6 @@
         private Label lblFertilizationSchedule;
         private Button btnUpdate;
         private Button btnDelete;
+        private Panel panel1;
     }
 }

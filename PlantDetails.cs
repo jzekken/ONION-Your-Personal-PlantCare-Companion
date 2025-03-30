@@ -10,9 +10,8 @@ using System.Windows.Forms;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-    public partial class result : UserControl
+    public partial class PlantDetails : UserControl
     {
-        public event EventHandler ResultDoubleClicked;
         public string CommonName
         {
             get => lblCommonName.Text;
@@ -24,24 +23,28 @@ namespace ONION_Your_Personal_PlantCare_Companion
             get => lblScientificName.Text;
             set => lblScientificName.Text = $"Scientific Name: {value}";
         }
-        public result()
+
+        public string WateringFrequency
         {
-            InitializeComponent();
-            DoubleBuffered = true;
-
-            // Attach double-click event to UserControl
-            this.DoubleClick += result_DoubleClick;
-
-            // Attach double-click event to all child controls
-            foreach (Control control in this.Controls)
-            {
-                control.DoubleClick += result_DoubleClick;
-            }
+            get => lblWateringFrequency.Text;
+            set => lblWateringFrequency.Text = $"Watering: {value}";
         }
 
-        private void result_DoubleClick(object sender, EventArgs e)
+        public string FertilizationFrequency
         {
-            ResultDoubleClicked?.Invoke(this, EventArgs.Empty);
+            get => lblFertilizationFrequency.Text;
+            set => lblFertilizationFrequency.Text = $"Fertilizing: {value}";
+        }
+
+        public string Description
+        {
+            get => lblDescription.Text;
+            set => lblDescription.Text = $"Description: {value}";
+        }
+
+        public PlantDetails()
+        {
+            InitializeComponent();
         }
     }
 }

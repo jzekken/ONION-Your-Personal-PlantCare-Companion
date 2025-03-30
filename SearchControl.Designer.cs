@@ -29,35 +29,38 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchControl));
-            txtSearch = new TextBox();
+            searchTextBox = new TextBox();
             panel1 = new Panel();
             button1 = new Button();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            result1 = new result();
-            result2 = new result();
-            result3 = new result();
-            result4 = new result();
+            searchContainer = new FlowLayoutPanel();
+            panel2 = new Panel();
+            pictureBox1 = new PictureBox();
+            lblDescription = new Label();
+            lblFertilizationFrequency = new Label();
+            lblWateringFrequency = new Label();
+            lblScientificName = new Label();
+            lblCommonName = new Label();
             panel1.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // txtSearch
+            // searchTextBox
             // 
-            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtSearch.BackColor = Color.FromArgb(228, 239, 231);
-            txtSearch.BorderStyle = BorderStyle.None;
-            txtSearch.Location = new Point(490, 21);
-            txtSearch.Multiline = true;
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(434, 34);
-            txtSearch.TabIndex = 0;
-            txtSearch.TextChanged += textBox1_TextChanged;
+            searchTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            searchTextBox.BackColor = Color.FromArgb(228, 239, 231);
+            searchTextBox.BorderStyle = BorderStyle.None;
+            searchTextBox.Location = new Point(490, 21);
+            searchTextBox.Multiline = true;
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.Size = new Size(435, 35);
+            searchTextBox.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(153, 188, 133);
             panel1.Controls.Add(button1);
-            panel1.Controls.Add(txtSearch);
+            panel1.Controls.Add(searchTextBox);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -78,72 +81,118 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
-            // flowLayoutPanel1
+            // searchContainer
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = Color.FromArgb(228, 239, 231);
-            flowLayoutPanel1.Controls.Add(result1);
-            flowLayoutPanel1.Controls.Add(result2);
-            flowLayoutPanel1.Controls.Add(result3);
-            flowLayoutPanel1.Controls.Add(result4);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(0, 66);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1012, 665);
-            flowLayoutPanel1.TabIndex = 2;
+            searchContainer.AutoScroll = true;
+            searchContainer.FlowDirection = FlowDirection.TopDown;
+            searchContainer.Location = new Point(490, 0);
+            searchContainer.Name = "searchContainer";
+            searchContainer.Size = new Size(469, 135);
+            searchContainer.TabIndex = 2;
+            searchContainer.WrapContents = false;
             // 
-            // result1
+            // panel2
             // 
-            result1.Location = new Point(3, 3);
-            result1.Name = "result1";
-            result1.Size = new Size(1008, 150);
-            result1.TabIndex = 0;
+            panel2.BackColor = Color.FromArgb(228, 239, 231);
+            panel2.Controls.Add(pictureBox1);
+            panel2.Controls.Add(lblDescription);
+            panel2.Controls.Add(lblFertilizationFrequency);
+            panel2.Controls.Add(lblWateringFrequency);
+            panel2.Controls.Add(lblScientificName);
+            panel2.Controls.Add(lblCommonName);
+            panel2.Controls.Add(searchContainer);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 66);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1012, 665);
+            panel2.TabIndex = 3;
             // 
-            // result2
+            // pictureBox1
             // 
-            result2.Location = new Point(3, 159);
-            result2.Name = "result2";
-            result2.Size = new Size(1008, 150);
-            result2.TabIndex = 1;
+            pictureBox1.Location = new Point(38, 35);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(220, 220);
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
             // 
-            // result3
+            // lblDescription
             // 
-            result3.Location = new Point(3, 315);
-            result3.Name = "result3";
-            result3.Size = new Size(1008, 150);
-            result3.TabIndex = 2;
+            lblDescription.AutoSize = true;
+            lblDescription.Font = new Font("Leelawadee UI", 16.2F);
+            lblDescription.Location = new Point(38, 274);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(91, 38);
+            lblDescription.TabIndex = 3;
+            lblDescription.Text = "label1";
             // 
-            // result4
+            // lblFertilizationFrequency
             // 
-            result4.Location = new Point(3, 471);
-            result4.Name = "result4";
-            result4.Size = new Size(1008, 150);
-            result4.TabIndex = 3;
+            lblFertilizationFrequency.AutoSize = true;
+            lblFertilizationFrequency.Font = new Font("Leelawadee UI", 16.2F);
+            lblFertilizationFrequency.Location = new Point(264, 211);
+            lblFertilizationFrequency.Name = "lblFertilizationFrequency";
+            lblFertilizationFrequency.Size = new Size(91, 38);
+            lblFertilizationFrequency.TabIndex = 4;
+            lblFertilizationFrequency.Text = "label1";
+            // 
+            // lblWateringFrequency
+            // 
+            lblWateringFrequency.AutoSize = true;
+            lblWateringFrequency.Font = new Font("Leelawadee UI", 16.2F);
+            lblWateringFrequency.Location = new Point(264, 173);
+            lblWateringFrequency.Name = "lblWateringFrequency";
+            lblWateringFrequency.Size = new Size(91, 38);
+            lblWateringFrequency.TabIndex = 5;
+            lblWateringFrequency.Text = "label1";
+            // 
+            // lblScientificName
+            // 
+            lblScientificName.AutoSize = true;
+            lblScientificName.Font = new Font("Leelawadee UI", 16.2F);
+            lblScientificName.Location = new Point(264, 135);
+            lblScientificName.Name = "lblScientificName";
+            lblScientificName.Size = new Size(91, 38);
+            lblScientificName.TabIndex = 6;
+            lblScientificName.Text = "label1";
+            // 
+            // lblCommonName
+            // 
+            lblCommonName.AutoSize = true;
+            lblCommonName.Font = new Font("Leelawadee UI", 16.2F);
+            lblCommonName.Location = new Point(264, 97);
+            lblCommonName.Name = "lblCommonName";
+            lblCommonName.Size = new Size(91, 38);
+            lblCommonName.TabIndex = 7;
+            lblCommonName.Text = "label1";
             // 
             // SearchControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "SearchControl";
             Size = new Size(1012, 731);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            flowLayoutPanel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TextBox txtSearch;
+        private TextBox searchTextBox;
         private Panel panel1;
         private Button button1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private result result1;
-        private result result2;
-        private result result3;
-        private result result4;
+        private FlowLayoutPanel searchContainer;
+        private Panel panel2;
+        private PictureBox pictureBox1;
+        private Label lblDescription;
+        private Label lblFertilizationFrequency;
+        private Label lblWateringFrequency;
+        private Label lblScientificName;
+        private Label lblCommonName;
     }
 }

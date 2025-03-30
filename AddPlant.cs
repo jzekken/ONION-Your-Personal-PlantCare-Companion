@@ -222,14 +222,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 conn.Open();
 
-                // ✅ Fetch existing image if no new image is selected
+                
                 byte[] imageBytes = null;
 
-                if (!string.IsNullOrEmpty(imagePath))  // New image selected
+                if (!string.IsNullOrEmpty(imagePath))  
                 {
                     imageBytes = File.ReadAllBytes(imagePath);
                 }
-                else  // No new image, fetch the existing one
+                else  
                 {
                     string queryImage = "SELECT PlantImage FROM Plants WHERE PlantID = ?";
 
@@ -244,13 +244,13 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         }
                         else
                         {
-                            // 🌟 Use a default image if none exists
+                            
                             imageBytes = File.ReadAllBytes("C:\\Users\\ACER ASPIRE 3\\Source\\Repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\default_plant.png");
                         }
                     }
                 }
 
-                // ✅ Update the plant details with existing or new image
+               
                 string query = "UPDATE Plants SET PlantName = ?, WateringFrequency = ?, FertilizationSchedule = ?, PlantImage = ? WHERE PlantID = ?";
 
                 using (var cmd = new OleDbCommand(query, conn))

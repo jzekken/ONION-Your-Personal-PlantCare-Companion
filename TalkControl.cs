@@ -15,12 +15,15 @@ namespace ONION_Your_Personal_PlantCare_Companion
     public partial class TalkControl : UserControl
     {
         private static readonly HttpClient client = new HttpClient();
-        private const string API_KEY = "AIzaSyD4M-16yXP2gaFFNKHS1EJqDpzatCqXJqM";  
+        private const string API_KEY = "AIzaSyD4M-16yXP2gaFFNKHS1EJqDpzatCqXJqM";
         private const string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
+
+        private List<(string sender, string message)> chatHistory = new List<(string, string)>();
+        private readonly string historyFilePath = Path.Combine(Application.StartupPath, "chatHistory.json");
         public TalkControl()
         {
             InitializeComponent();
-            
+            LoadChatHistory();
         }
 
         private void inc1_Load(object sender, EventArgs e)
@@ -45,10 +48,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
             if (string.IsNullOrEmpty(userMessage)) return;
 
             AddOutgoingMessage(userMessage);  // Show user's message as a bubble
+            chatHistory.Add(("You", userMessage));  // Save to history
+            SaveChatHistory();
             txtUserInput.Clear();
 
             string botResponse = await GetAIResponse(userMessage);
             AddIncomingMessage(botResponse);
+            chatHistory.Add(("Onion", botResponse));  // Save to history
+            SaveChatHistory();
         }
         private void AddIncomingMessage(string message)
         {
@@ -83,36 +90,150 @@ namespace ONION_Your_Personal_PlantCare_Companion
             });
         }
 
-
         private async Task<string> GetAIResponse(string userMessage)
         {
             try
             {
-                var requestBody = new
+                // Prepare the chat history for context
+                var chatContext = new List<object>();
+
+                // Add the previous conversation history (last 10 exchanges)
+                foreach (var (sender, msg) in chatHistory.TakeLast(10))  // Renamed 'message' to 'msg'
                 {
-                    contents = new[]
+                    chatContext.Add(new
                     {
-                new { parts = new[] { new { text = userMessage } } }
-            }
-                };
+                        role = sender == "You" ? "user" : "model",
+                        parts = new[] { new { text = msg } }  // Use 'msg' here
+                    });
+                }
+
+                // Add the current user message
+                chatContext.Add(new
+                {
+                    role = "user",
+                    parts = new[] { new { text = userMessage } }
+                });
+
+                // Prepare the request body
+                var requestBody = new { contents = chatContext };
 
                 var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync(API_URL, content);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Response: {jsonResponse}");  // Debugging ina
+                Console.WriteLine($"Response: {jsonResponse}");
 
                 if (!response.IsSuccessStatusCode)
                     return $"Error: {response.StatusCode} - {jsonResponse}";
 
                 dynamic result = JsonConvert.DeserializeObject(jsonResponse);
-                string message = result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
-                message = System.Text.RegularExpressions.Regex.Replace(message, @"[*_`]", "");
-                return message;
+
+                // Extract the AI's response message
+                string aiResponse = result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
+                aiResponse = System.Text.RegularExpressions.Regex.Replace(aiResponse, @"[*_`]", "");  // Clean up formatting
+                return aiResponse;
             }
             catch (Exception ex)
             {
                 return $"Exception: {ex.Message}";
+            }
+        }
+
+
+
+        //private async Task<string> GetAIResponse(string userMessage)
+        //{
+        //    try
+        //    {
+        //        var requestBody = new
+        //        {
+        //            contents = new[]
+        //            {
+        //        new { parts = new[] { new { text = userMessage } } }
+        //    }
+        //        };
+
+        //        var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
+
+        //        HttpResponseMessage response = await client.PostAsync(API_URL, content);
+        //        string jsonResponse = await response.Content.ReadAsStringAsync();
+        //        Console.WriteLine($"Response: {jsonResponse}");  // Debugging ina
+
+        //        if (!response.IsSuccessStatusCode)
+        //            return $"Error: {response.StatusCode} - {jsonResponse}";
+
+        //        dynamic result = JsonConvert.DeserializeObject(jsonResponse);
+        //        string message = result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
+        //        message = System.Text.RegularExpressions.Regex.Replace(message, @"[*_`]", "");
+        //        return message;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return $"Exception: {ex.Message}";
+        //    }
+        //}
+
+        private void TalkControl_Load(object sender, EventArgs e)
+        {
+            DisplayChatHistory();
+        }
+        private void SaveChatHistory()
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(chatHistory, Formatting.Indented);
+                File.WriteAllText(historyFilePath, json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save chat history: {ex.Message}");
+            }
+        }
+
+        private void LoadChatHistory()
+        {
+            try
+            {
+                if (File.Exists(historyFilePath))
+                {
+                    string json = File.ReadAllText(historyFilePath);
+                    chatHistory = JsonConvert.DeserializeObject<List<(string sender, string message)>>(json) ?? new List<(string, string)>();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load chat history: {ex.Message}");
+            }
+        }
+        private void DisplayChatHistory()
+        {
+            panelContainer.Controls.Clear();
+            panelContainer.RowCount = 0;
+
+            foreach (var (sender, message) in chatHistory)
+            {
+                if (sender == "You")
+                {
+                    AddOutgoingMessage(message);
+                }
+                else
+                {
+                    AddIncomingMessage(message);
+                }
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to clear the chat history?",
+                                "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                chatHistory.Clear();
+                SaveChatHistory();
+                DisplayChatHistory();
+                MessageBox.Show("Chat history cleared.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

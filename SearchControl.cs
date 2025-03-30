@@ -7,28 +7,123 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.OleDb;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
 
     public partial class SearchControl : UserControl
     {
-        private readonly PlantService plantService = new PlantService();
+        private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ACER ASPIRE 3\Source\Repos\ONION-Your-Personal-PlantCare-Companion\Resources\PlantData.accdb;";
 
         public SearchControl()
         {
             InitializeComponent();
+            lblCommonName.Text = "";
+            lblScientificName.Text = "";
+            lblWateringFrequency.Text = "";
+            lblFertilizationFrequency.Text = "";
+            lblDescription.Text = "";
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
+            string searchText = searchTextBox.Text.Trim();
 
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                
+                searchContainer.BringToFront();
+                LoadSearchResults(searchText);
+            }
         }
-
-        private async void button1_Click(object sender, EventArgs e)
+        private void LoadSearchResults(string search)
         {
             
-            
+            searchContainer.Controls.Clear(); // Clear previous results
+            searchContainer.BringToFront();
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                string query = "SELECT PlantID, CommonName, ScientificName FROM PlantDS " +
+                               "WHERE CommonName LIKE @search OR ScientificName LIKE @search;";
+
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@search", "%" + search + "%");
+
+                    conn.Open();
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        bool hasResults = false;
+
+                        while (reader.Read())
+                        {
+                            hasResults = true;
+                            var resultItem = new result
+                            {
+                                CommonName = reader["CommonName"].ToString(),
+                                ScientificName = reader["ScientificName"].ToString()
+                            };
+
+
+                            // Add double-click event
+                            string plantID = reader["PlantID"].ToString();
+                            resultItem.ResultDoubleClicked += (s, args) =>
+                            {
+                                ShowPlantDetails(plantID);
+                                searchContainer.Controls.Clear();
+                                searchTextBox.Clear();
+                                searchContainer.SendToBack();
+                            };
+
+                            searchContainer.Controls.Add(resultItem);
+                        }
+                        if (!hasResults)
+                        {
+                            Label noResultsLabel = new Label
+                            {
+                                Text = "No plants found.",
+                                AutoSize = true,
+                                Font = new Font("Arial", 12, FontStyle.Italic),
+                                ForeColor = Color.Gray,
+                                Dock = DockStyle.Top,
+                                TextAlign = ContentAlignment.MiddleCenter
+                            };
+
+                            searchContainer.Controls.Add(noResultsLabel);
+                        }
+                    }
+                }
+            }
+        }
+        private void ShowPlantDetails(string plantID)
+        {
+            // Query the database for full plant details
+            string query = @"SELECT PlantID, CommonName, ScientificName, 
+                            WateringFrequency, FertilizationFrequency, Description 
+                     FROM PlantDS
+                     WHERE PlantID = @PlantID";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                using (OleDbCommand command = new OleDbCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PlantID", plantID);
+                    using (OleDbDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            lblCommonName.Text = $"Common Name: {reader["CommonName"]}";
+                            lblScientificName.Text = $"Scientific Name: {reader["ScientificName"]}";
+                            lblWateringFrequency.Text = $"Watering: {reader["WateringFrequency"]}";
+                            lblFertilizationFrequency.Text = $"Fertilizing: {reader["FertilizationFrequency"]}";
+                            lblDescription.Text = $"Description: {reader["Description"]}";
+                        }
+                    }
+                }
+            }
         }
     }
 }

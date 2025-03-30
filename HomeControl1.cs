@@ -20,9 +20,13 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public HomeControl1()
         {
             InitializeComponent();
-            
+
         }
-       
+
+        private void parrotBarGraph1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-     
-    }
+
+}

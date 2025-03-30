@@ -86,7 +86,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 LoadUserControl(new TalkControl(), talkbtn);
             }
-            else if (command.Contains("open list") || command.Contains("list"))
+            else if (command.Contains("open list") || command.Contains("list of plants"))
             {
                 LoadUserControl(new ListControl(), listbtn);
             }
