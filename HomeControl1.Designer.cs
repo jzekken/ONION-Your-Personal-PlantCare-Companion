@@ -29,41 +29,38 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeControl1));
-            panel1 = new Panel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            plantdata1 = new Plantdata();
-            plantdata2 = new Plantdata();
-            plantdata3 = new Plantdata();
-            plantdata4 = new Plantdata();
-            panel1.SuspendLayout();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            pictureBox4 = new PictureBox();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            mainPanel = new Panel();
+            panel2 = new Panel();
+            parrotBarGraph1 = new ReaLTaiizor.Controls.ParrotBarGraph();
+            panel1 = new Panel();
+            parrotLineGraph1 = new ReaLTaiizor.Controls.ParrotLineGraph();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            mainPanel.SuspendLayout();
+            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label3);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1030, 294);
-            panel1.TabIndex = 0;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(20, 21);
+            pictureBox1.Location = new Point(10, 21);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(257, 255);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 7;
+            pictureBox1.Size = new Size(263, 270);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // label1
@@ -71,10 +68,10 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Leelawadee UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(283, 21);
+            label1.Location = new Point(284, 21);
             label1.Name = "label1";
             label1.Size = new Size(175, 60);
-            label1.TabIndex = 4;
+            label1.TabIndex = 1;
             label1.Text = "ONION";
             // 
             // label2
@@ -83,10 +80,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Leelawadee UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ButtonShadow;
-            label2.Location = new Point(286, 81);
+            label2.Location = new Point(284, 81);
             label2.Name = "label2";
             label2.Size = new Size(319, 25);
-            label2.TabIndex = 5;
+            label2.TabIndex = 2;
             label2.Text = "Your Personal PlantCare Companion";
             // 
             // label3
@@ -94,96 +91,199 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Leelawadee UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(286, 116);
+            label3.Location = new Point(284, 116);
             label3.Name = "label3";
             label3.Size = new Size(705, 160);
-            label3.TabIndex = 6;
+            label3.TabIndex = 3;
             label3.Text = resources.GetString("label3.Text");
             // 
-            // flowLayoutPanel1
+            // pictureBox2
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(plantdata1);
-            flowLayoutPanel1.Controls.Add(plantdata2);
-            flowLayoutPanel1.Controls.Add(plantdata3);
-            flowLayoutPanel1.Controls.Add(plantdata4);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 294);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1030, 382);
-            flowLayoutPanel1.TabIndex = 2;
-            flowLayoutPanel1.WrapContents = false;
+            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(78, 317);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(259, 224);
+            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox2.TabIndex = 4;
+            pictureBox2.TabStop = false;
             // 
-            // plantdata1
+            // pictureBox3
             // 
-            plantdata1.FertilizationSchedule = "Fertilization: Fertilization: Fertilization Schedule:";
-            plantdata1.Location = new Point(3, 3);
-            plantdata1.Name = "plantdata1";
-            plantdata1.PlantID = null;
-            plantdata1.PlantName = "Plant: ";
-            plantdata1.Size = new Size(288, 243);
-            plantdata1.TabIndex = 0;
-            plantdata1.WateringFrequency = "Watering: Watering: Watering Frequency:";
+            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(391, 317);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(259, 224);
+            pictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox3.TabIndex = 4;
+            pictureBox3.TabStop = false;
             // 
-            // plantdata2
+            // pictureBox4
             // 
-            plantdata2.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
-            plantdata2.Location = new Point(297, 3);
-            plantdata2.Name = "plantdata2";
-            plantdata2.PlantID = null;
-            plantdata2.PlantName = "Plant: ";
-            plantdata2.Size = new Size(288, 243);
-            plantdata2.TabIndex = 1;
-            plantdata2.WateringFrequency = "Watering: Watering: Watering: Watering Frequency:";
+            pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(705, 317);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(259, 224);
+            pictureBox4.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox4.TabIndex = 4;
+            pictureBox4.TabStop = false;
             // 
-            // plantdata3
+            // label4
             // 
-            plantdata3.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
-            plantdata3.Location = new Point(591, 3);
-            plantdata3.Name = "plantdata3";
-            plantdata3.PlantID = null;
-            plantdata3.PlantName = "Plant: ";
-            plantdata3.Size = new Size(288, 243);
-            plantdata3.TabIndex = 2;
-            plantdata3.WateringFrequency = "Watering: Watering: Watering: Watering Frequency:";
+            label4.AutoSize = true;
+            label4.Font = new Font("Leelawadee UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonShadow;
+            label4.Location = new Point(78, 555);
+            label4.Name = "label4";
+            label4.Size = new Size(71, 25);
+            label4.TabIndex = 2;
+            label4.Text = "Plant 1";
             // 
-            // plantdata4
+            // label5
             // 
-            plantdata4.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
-            plantdata4.Location = new Point(885, 3);
-            plantdata4.Name = "plantdata4";
-            plantdata4.PlantID = null;
-            plantdata4.PlantName = "Plant: ";
-            plantdata4.Size = new Size(288, 243);
-            plantdata4.TabIndex = 2;
-            plantdata4.WateringFrequency = "Watering: Watering: Watering: Watering: Watering Frequency:";
+            label5.AutoSize = true;
+            label5.Font = new Font("Leelawadee UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ButtonShadow;
+            label5.Location = new Point(391, 555);
+            label5.Name = "label5";
+            label5.Size = new Size(71, 25);
+            label5.TabIndex = 2;
+            label5.Text = "Plant 2";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Leelawadee UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = SystemColors.ButtonShadow;
+            label6.Location = new Point(705, 555);
+            label6.Name = "label6";
+            label6.Size = new Size(71, 25);
+            label6.TabIndex = 2;
+            label6.Text = "Plant 3";
+            // 
+            // mainPanel
+            // 
+            mainPanel.AutoScroll = true;
+            mainPanel.BackColor = Color.FromArgb(228, 239, 231);
+            mainPanel.Controls.Add(panel2);
+            mainPanel.Controls.Add(pictureBox4);
+            mainPanel.Controls.Add(panel1);
+            mainPanel.Controls.Add(pictureBox3);
+            mainPanel.Controls.Add(pictureBox2);
+            mainPanel.Controls.Add(pictureBox1);
+            mainPanel.Controls.Add(label3);
+            mainPanel.Controls.Add(label1);
+            mainPanel.Controls.Add(label6);
+            mainPanel.Controls.Add(label2);
+            mainPanel.Controls.Add(label5);
+            mainPanel.Controls.Add(label4);
+            mainPanel.Dock = DockStyle.Fill;
+            mainPanel.Location = new Point(0, 0);
+            mainPanel.Name = "mainPanel";
+            mainPanel.Size = new Size(1012, 929);
+            mainPanel.TabIndex = 6;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(parrotBarGraph1);
+            panel2.Location = new Point(391, 638);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(573, 174);
+            panel2.TabIndex = 7;
+            // 
+            // parrotBarGraph1
+            // 
+            parrotBarGraph1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            parrotBarGraph1.FilledColor = Color.FromArgb(30, 33, 38);
+            parrotBarGraph1.GraphOrientation = ReaLTaiizor.Controls.ParrotBarGraph.Orientation.Vertical;
+            parrotBarGraph1.GraphStyle = ReaLTaiizor.Controls.ParrotBarGraph.Style.Material;
+            parrotBarGraph1.Items = (List<int>)resources.GetObject("parrotBarGraph1.Items");
+            parrotBarGraph1.Location = new Point(0, 0);
+            parrotBarGraph1.Name = "parrotBarGraph1";
+            parrotBarGraph1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            parrotBarGraph1.ShowGrid = false;
+            parrotBarGraph1.Size = new Size(573, 174);
+            parrotBarGraph1.Sorting = ReaLTaiizor.Controls.ParrotBarGraph.SortStyle.Normal;
+            parrotBarGraph1.SplitterColor = Color.FromArgb(59, 62, 71);
+            parrotBarGraph1.TabIndex = 0;
+            parrotBarGraph1.Text = "parrotBarGraph1";
+            parrotBarGraph1.TextAlignment = ReaLTaiizor.Controls.ParrotBarGraph.Aligning.Far;
+            parrotBarGraph1.TextColor = Color.FromArgb(120, 120, 120);
+            parrotBarGraph1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotBarGraph1.UnfilledColor = Color.FromArgb(37, 40, 49);
+            parrotBarGraph1.Click += parrotBarGraph1_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(parrotLineGraph1);
+            panel1.Location = new Point(78, 638);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(276, 174);
+            panel1.TabIndex = 6;
+            // 
+            // parrotLineGraph1
+            // 
+            parrotLineGraph1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            parrotLineGraph1.BackGroundColor = Color.FromArgb(102, 217, 174);
+            parrotLineGraph1.BelowLineColor = Color.FromArgb(24, 202, 142);
+            parrotLineGraph1.BorderColor = Color.White;
+            parrotLineGraph1.GraphStyle = ReaLTaiizor.Controls.ParrotLineGraph.Style.Material;
+            parrotLineGraph1.GraphTitle = "Parrot Line Graph";
+            parrotLineGraph1.GraphTitleColor = Color.Gray;
+            parrotLineGraph1.Items = (List<int>)resources.GetObject("parrotLineGraph1.Items");
+            parrotLineGraph1.LineColor = Color.White;
+            parrotLineGraph1.Location = new Point(0, 0);
+            parrotLineGraph1.Name = "parrotLineGraph1";
+            parrotLineGraph1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            parrotLineGraph1.PointSize = 7;
+            parrotLineGraph1.ShowBorder = false;
+            parrotLineGraph1.ShowPoints = true;
+            parrotLineGraph1.ShowTitle = false;
+            parrotLineGraph1.ShowVerticalLines = false;
+            parrotLineGraph1.Size = new Size(276, 174);
+            parrotLineGraph1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotLineGraph1.TabIndex = 7;
+            parrotLineGraph1.Text = "parrotLineGraph1";
+            parrotLineGraph1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotLineGraph1.TitleAlignment = StringAlignment.Near;
+            parrotLineGraph1.VerticalLineColor = Color.DimGray;
             // 
             // HomeControl1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(flowLayoutPanel1);
-            Controls.Add(panel1);
+            Controls.Add(mainPanel);
             Name = "HomeControl1";
-            Size = new Size(1030, 676);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Size = new Size(1012, 929);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            mainPanel.ResumeLayout(false);
+            mainPanel.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
+        private PictureBox pictureBox1;
         private Label label1;
         private Label label2;
         private Label label3;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Plantdata plantdata1;
-        private Plantdata plantdata2;
-        private Plantdata plantdata3;
-        private PictureBox pictureBox1;
-        private Plantdata plantdata4;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Panel mainPanel;
+        private Panel panel1;
+        private ReaLTaiizor.Controls.ParrotLineGraph parrotLineGraph1;
+        private Panel panel2;
+        private ReaLTaiizor.Controls.ParrotBarGraph parrotBarGraph1;
     }
 }

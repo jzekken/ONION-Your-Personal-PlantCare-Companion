@@ -25,8 +25,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.2.0" />
     <PackageReference Include="ReaLTaiizor" Version="3.8.1.1" />
-    <PackageReference Include="Siticone.NetCore.UI" Version="2025.2.14" />
-    <PackageReference Include="Siticone.WinForms.UI" Version="2024.10.7" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.3" />
     <PackageReference Include="System.Net.Http.Json" Version="9.0.3" />
     <PackageReference Include="Vosk" Version="0.3.38" />

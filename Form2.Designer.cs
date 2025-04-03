@@ -35,8 +35,6 @@
             button7 = new Button();
             label1 = new Label();
             panel2 = new Panel();
-            toggleVoiceBtn = new Button();
-            pictureBox1 = new PictureBox();
             aboutbtn = new Button();
             gardenbtn = new Button();
             listbtn = new Button();
@@ -48,7 +46,6 @@
             mainPanel = new Panel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -117,8 +114,6 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(224, 239, 204);
-            panel2.Controls.Add(toggleVoiceBtn);
-            panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(aboutbtn);
             panel2.Controls.Add(gardenbtn);
             panel2.Controls.Add(listbtn);
@@ -132,29 +127,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(250, 676);
             panel2.TabIndex = 1;
-            // 
-            // toggleVoiceBtn
-            // 
-            toggleVoiceBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            toggleVoiceBtn.FlatStyle = FlatStyle.Flat;
-            toggleVoiceBtn.Location = new Point(150, 421);
-            toggleVoiceBtn.Name = "toggleVoiceBtn";
-            toggleVoiceBtn.Size = new Size(94, 29);
-            toggleVoiceBtn.TabIndex = 2;
-            toggleVoiceBtn.Text = "Disable Voice";
-            toggleVoiceBtn.UseVisualStyleBackColor = true;
-            toggleVoiceBtn.Click += toggleVoiceBtn_Click;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Bottom;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(0, 456);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(250, 220);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 7;
-            pictureBox1.TabStop = false;
             // 
             // aboutbtn
             // 
@@ -321,7 +293,6 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -342,7 +313,5 @@
         private Panel mainPanel;
         private Button minbtn;
         private Button maxbtn;
-        private PictureBox pictureBox1;
-        private Button toggleVoiceBtn;
     }
 }

@@ -32,7 +32,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             try
             {
-
+                
                 myConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Users\\ACER ASPIRE 3\\source\\repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\PlantData.accdb\"");
 
                 string query = @"SELECT Plants.PlantID, Plants.PlantName, Plants.WateringFrequency, Plants.FertilizationSchedule, Plants.PlantImage FROM Plants;";
@@ -93,10 +93,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         private void button1_Click(object sender, EventArgs e) //add button
         {
             AddPlant addForm = new AddPlant();
-            if (addForm.ShowDialog() == DialogResult.OK)
-            {
-                LoadPlants();  // Refresh the list when a plant is added
-            }
+            addForm.ShowDialog();
         }
         private void LoadPlants()
         {
@@ -173,32 +170,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         // Add the plant control
                         flowLayoutPanel1.Controls.Add(plantControl);
                     }
-                    lblPlantCount.Text = $"Total Plants: {ds.Tables["Plants"].Rows.Count}";
                 }
-                SetupSearchAutoComplete();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading plants: " + ex.Message);
             }
         }
-        private void SetupSearchAutoComplete()
-        {
-            txtSearchPlant.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txtSearchPlant.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
-            var autoCompleteCollection = new AutoCompleteStringCollection();
-
-            if (ds != null && ds.Tables.Contains("Plants"))
-            {
-                foreach (DataRow row in ds.Tables["Plants"].Rows)
-                {
-                    autoCompleteCollection.Add(row["PlantName"].ToString());
-                }
-            }
-
-            txtSearchPlant.AutoCompleteCustomSource = autoCompleteCollection;
-        }
 
         private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -209,42 +188,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 if (control is Plantdata plant && plant.ContextMenuStrip != null)
                 {
                     plant.ContextMenuStrip.Show(Cursor.Position);
-                }
-            }
-        }
-
-        private void txtSearchPlant_TextChanged(object sender, EventArgs e)
-        {
-            if (ds == null || !ds.Tables.Contains("Plants")) return;
-
-            string searchText = txtSearchPlant.Text.ToLower();
-            flowLayoutPanel1.Controls.Clear();
-
-            foreach (DataRow row in ds.Tables["Plants"].Rows)
-            {
-                string plantName = row["PlantName"].ToString().ToLower();
-
-                if (plantName.Contains(searchText))
-                {
-                    Plantdata plantControl = new Plantdata
-                    {
-                        PlantID = row["PlantID"].ToString(),
-                        PlantName = $"Plant: {row["PlantName"]}",
-                        WateringFrequency = row["WateringFrequency"].ToString(),
-                        FertilizationSchedule = row["FertilizationSchedule"].ToString()
-                    };
-
-                    // Load plant image
-                    if (row["PlantImage"] != DBNull.Value)
-                    {
-                        byte[] imageBytes = (byte[])row["PlantImage"];
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
-                        {
-                            plantControl.PlantImage = Image.FromStream(ms);
-                        }
-                    }
-
-                    flowLayoutPanel1.Controls.Add(plantControl);
                 }
             }
         }

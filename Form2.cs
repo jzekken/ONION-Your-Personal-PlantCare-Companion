@@ -12,73 +12,34 @@ using NAudio.Wave;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-    
     public partial class Form2 : Form
     {
         private Button activeButton;
         private WaveInEvent waveIn;
         private VoskRecognizer recognizer;
         private Model model;
-        private bool isVoiceEnabled = true;
 
         public Form2()
         {
             InitializeComponent();
-            MakeFormRounded();
-            EnableDoubleBuffering();
             LoadUserControl(new HomeControl1(), homebtn);
             InitializeVoiceRecognition();
         }
-        private void EnableDoubleBuffering()
-        {
-            mainPanel.GetType().GetProperty("DoubleBuffered",
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic)
-                .SetValue(mainPanel, true, null);
-        }
-        private void MakeFormRounded()
-        {
-            // Set the form's border style to None to remove the default border
-            this.FormBorderStyle = FormBorderStyle.None;
-
-            // Define the radius of the rounded corners
-            int radius = 30;
-
-            // Create a GraphicsPath to define the form shape
-            System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
-
-            // Create a rounded rectangle path
-            path.AddArc(0, 0, radius, radius, 180, 90); // top-left corner
-            path.AddArc(this.Width - radius - 1, 0, radius, radius, 270, 90); // top-right corner
-            path.AddArc(this.Width - radius - 1, this.Height - radius - 1, radius, radius, 0, 90); // bottom-right corner
-            path.AddArc(0, this.Height - radius - 1, radius, radius, 90, 90); // bottom-left corner
-            path.CloseAllFigures(); // Close the path to create a full rounded rectangle
-
-            // Set the form’s region to the defined path
-            this.Region = new Region(path);
-        }
-
-        // Optional: Allow resizing of the form (with rounded corners)
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            MakeFormRounded(); // Reapply the rounded corners when the form is resized
-        }
-        private async void InitializeVoiceRecognition()
+        private void InitializeVoiceRecognition()
         {
             try
             {
-                await Task.Run(() =>
-                {
-                    model = new Model(Path.Combine(Application.StartupPath, "VoskModel"));
-                    recognizer = new VoskRecognizer(model, 16000.0f);
-                });
+                // Load Vosk model from the VoskModel folder
+                model = new Model(Path.Combine(Application.StartupPath, "VoskModel"));
 
+                // Set up microphone input
                 waveIn = new WaveInEvent
                 {
                     DeviceNumber = 0,
                     WaveFormat = new WaveFormat(16000, 1)
                 };
+
+                recognizer = new VoskRecognizer(model, 16000.0f);
 
                 waveIn.DataAvailable += (sender, e) =>
                 {
@@ -148,69 +109,26 @@ namespace ONION_Your_Personal_PlantCare_Companion
             else if (command.Contains("maximize") || command.Contains("expand"))
             {
                 this.WindowState = FormWindowState.Maximized;
-            }
-            else if (command.Contains("normal") || command.Contains("return"))
+            }else if(command.Contains("normal") || command.Contains("return"))
             {
                 this.WindowState = FormWindowState.Normal;
             }
         }
-        //private void LoadUserControl(UserControl userControl, Button clickedButton)
-        //{
-        //    mainPanel.Controls.Clear();
-        //    userControl.Dock = DockStyle.Fill;
-        //    mainPanel.Controls.Add(userControl);
-
-        //    if (activeButton != null)
-        //    {
-        //        activeButton.BackColor = Color.FromArgb(224, 239, 204);
-        //    }
-
-
-        //    clickedButton.BackColor = Color.LightGreen;
-        //    activeButton = clickedButton;
-        //}
-        private async void LoadUserControl(UserControl userControl, Button clickedButton)
+        private void LoadUserControl(UserControl userControl, Button clickedButton)
         {
-            if (mainPanel.Controls.Count > 0)
-            {
-                var currentControl = mainPanel.Controls[0];
-
-                // Faster fade-out (reduce iterations)
-                for (int i = 100; i >= 0; i -= 25)  // Change step size from 10 to 25
-                {
-                    currentControl.BackColor = Color.FromArgb(i * 255 / 100, currentControl.BackColor);
-                    await Task.Delay(5);  // Reduce delay from 10ms to 5ms
-                }
-
-                mainPanel.Controls.Clear();
-                currentControl.Dispose(); // Free memory
-            }
-
-            mainPanel.SuspendLayout();
+            mainPanel.Controls.Clear();
             userControl.Dock = DockStyle.Fill;
             mainPanel.Controls.Add(userControl);
-            userControl.BringToFront();
-            mainPanel.ResumeLayout();
-            mainPanel.Refresh();
 
-            // Faster fade-in
-            for (int i = 0; i <= 100; i += 25)
+            if (activeButton != null)
             {
-                userControl.BackColor = Color.FromArgb(i * 255 / 100, userControl.BackColor);
-                await Task.Delay(5);
+                activeButton.BackColor = Color.FromArgb(224, 239, 204);
             }
 
-            // Highlight active button
-            if (activeButton != null)
-                activeButton.BackColor = Color.FromArgb(224, 239, 204);
 
             clickedButton.BackColor = Color.LightGreen;
             activeButton = clickedButton;
         }
-
-
-
-
 
         private void homebtn_Click(object sender, EventArgs e)
         {
@@ -270,24 +188,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
             waveIn?.Dispose();
             model?.Dispose();
             base.OnFormClosing(e);
-        }
-
-        private void toggleVoiceBtn_Click(object sender, EventArgs e)
-        {
-            if (isVoiceEnabled)
-            {
-                waveIn.StopRecording();
-                toggleVoiceBtn.Text = "Enable Voice";
-                toggleVoiceBtn.BackColor = Color.Red; // Red when disabled
-            }
-            else
-            {
-                waveIn.StartRecording();
-                toggleVoiceBtn.Text = "Disable Voice";
-                toggleVoiceBtn.BackColor = Color.Green; // Green when enabled
-            }
-
-            isVoiceEnabled = !isVoiceEnabled;
         }
     }
 }
