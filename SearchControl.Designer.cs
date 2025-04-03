@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchControl));
             searchTextBox = new TextBox();
             panel1 = new Panel();
+            pictureBox2 = new PictureBox();
             button1 = new Button();
             searchContainer = new FlowLayoutPanel();
             panel2 = new Panel();
@@ -53,12 +54,11 @@
             pictureBox1 = new PictureBox();
             lblScientificName = new Label();
             lblCommonName = new Label();
-            pictureBox2 = new PictureBox();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel2.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // searchTextBox
@@ -83,6 +83,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1012, 66);
             panel1.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(18, -55);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(270, 142);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 2;
+            pictureBox2.TabStop = false;
             // 
             // button1
             // 
@@ -333,6 +343,7 @@
             pictureBox1.Location = new Point(38, 27);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(250, 250);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 8;
             pictureBox1.TabStop = false;
             // 
@@ -356,16 +367,6 @@
             lblCommonName.TabIndex = 7;
             lblCommonName.Text = "label1";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(18, -55);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(270, 142);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 2;
-            pictureBox2.TabStop = false;
-            // 
             // SearchControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -376,12 +377,12 @@
             Size = new Size(1012, 731);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 

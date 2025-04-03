@@ -112,7 +112,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             string query = @"SELECT PlantID, CommonName, ScientificName, 
                              WateringFrequency, FertilizationFrequency, Description,
                              OptimalTemperature, SunlightRequirement, SoilType, Height, 
-                             GrowthRate, FloweringSeason, Humidity, PruningRequirements
+                             GrowthRate, FloweringSeason, Humidity, PruningRequirements, PlantImage
                           FROM PlantDS
                           WHERE PlantID = @PlantID";
 
@@ -143,6 +143,20 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             lblFlowering.Text = $"Flowering Season: {reader["FloweringSeason"] ?? "N/A"}";
                             lblHumidity.Text = $"Humidity: {reader["Humidity"] ?? "N/A"}";
                             lblPruning.Text = $"Pruning Requirements: {reader["PruningRequirements"] ?? "N/A"}";
+                           
+                            if (!(reader["PlantImage"] is DBNull))
+                            {
+                                byte[] imageData = (byte[])reader["PlantImage"];
+
+                                using (MemoryStream ms = new MemoryStream(imageData))
+                                {
+                                    pictureBox1.Image = Image.FromStream(ms); // Display in PictureBox
+                                }
+                            }
+                            else
+                            {
+                                pictureBox1.Image = null; // No image found
+                            }
                         }
                     }
                 }
