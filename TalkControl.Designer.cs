@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TalkControl));
             panel1 = new Panel();
+            button1 = new Button();
             btnSend = new Button();
             txtUserInput = new TextBox();
             panelContainer = new TableLayoutPanel();
-            button1 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,6 +48,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1012, 125);
             panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.Location = new Point(982, 100);
+            button1.Name = "button1";
+            button1.Size = new Size(30, 25);
+            button1.TabIndex = 1;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // btnSend
             // 
@@ -88,18 +101,6 @@
             panelContainer.RowStyles.Add(new RowStyle());
             panelContainer.Size = new Size(1012, 533);
             panelContainer.TabIndex = 1;
-            // 
-            // button1
-            // 
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(982, 100);
-            button1.Name = "button1";
-            button1.Size = new Size(30, 25);
-            button1.TabIndex = 1;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_1;
             // 
             // TalkControl
             // 
