@@ -137,8 +137,8 @@ namespace ONION_Your_Personal_PlantCare_Companion
         private void button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPlantName.Text) ||
-           string.IsNullOrEmpty(txtWaterFreq.Text) ||
-           string.IsNullOrEmpty(txtFertilization.Text))
+        string.IsNullOrEmpty(txtWaterFreq.Text) ||
+        string.IsNullOrEmpty(txtFertilization.Text))
             {
                 MessageBox.Show("Please fill all fields.");
                 return;
@@ -149,44 +149,78 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 conn.Open();
 
                 string query;
+                bool isNewPlant = string.IsNullOrEmpty(plantID);
 
-                if (string.IsNullOrEmpty(plantID))   
+                if (isNewPlant)
                 {
                     query = "INSERT INTO Plants (PlantName, WateringFrequency, FertilizationSchedule, PlantImage) " +
-                            "VALUES (@name, @water, @fertilize, @image)";
+                            "VALUES (?, ?, ?, ?)";
                 }
-                else   
+                else
                 {
-                    query = "UPDATE Plants SET PlantName = @name, WateringFrequency = @water, FertilizationSchedule = @fertilize, PlantImage = @image " +
-                            "WHERE PlantID = @id";
+                    query = "UPDATE Plants SET PlantName = ?, WateringFrequency = ?, FertilizationSchedule = ?, PlantImage = ? " +
+                            "WHERE PlantID = ?";
                 }
 
                 using (OleDbCommand cmd = new OleDbCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@name", txtPlantName.Text);
-                    cmd.Parameters.AddWithValue("@water", txtWaterFreq.Text);
-                    cmd.Parameters.AddWithValue("@fertilize", txtFertilization.Text);
+                    cmd.Parameters.AddWithValue("?", txtPlantName.Text);
+                    cmd.Parameters.AddWithValue("?", Convert.ToInt32(txtWaterFreq.Text));  // Ensure integer
+                    cmd.Parameters.AddWithValue("?", Convert.ToInt32(txtFertilization.Text));  // Ensure integer
 
-                    
-                    if (!string.IsNullOrEmpty(imagePath))  
+                    if (!string.IsNullOrEmpty(imagePath))
                     {
                         byte[] imageBytes = File.ReadAllBytes(imagePath);
-                        cmd.Parameters.AddWithValue("@image", imageBytes);
+                        cmd.Parameters.AddWithValue("?", imageBytes);
                     }
-                    else  
+                    else
                     {
-                        cmd.Parameters.AddWithValue("@image", DBNull.Value);
+                        cmd.Parameters.AddWithValue("?", DBNull.Value);
                     }
 
-                    if (!string.IsNullOrEmpty(plantID))   
+                    if (!isNewPlant)
                     {
-                        cmd.Parameters.AddWithValue("@id", plantID);
+                        cmd.Parameters.AddWithValue("?", Convert.ToInt32(plantID));  // Ensure integer
                     }
 
                     cmd.ExecuteNonQuery();
                 }
 
-                MessageBox.Show(string.IsNullOrEmpty(plantID) ? "Plant added successfully." : "Plant updated successfully.");
+                if (isNewPlant)
+                {
+                    // Retrieve the new PlantID
+                    string getIdQuery = "SELECT MAX(PlantID) FROM Plants";
+                    int newPlantID = 0;
+
+                    using (OleDbCommand cmd = new OleDbCommand(getIdQuery, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        if (result != DBNull.Value)
+                        {
+                            newPlantID = Convert.ToInt32(result);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error retrieving new PlantID.");
+                            return;
+                        }
+                    }
+
+                    // Insert initial health record
+                    string healthQuery = "INSERT INTO HealthHistory (PlantID, HealthValue, RecordedDate) VALUES (?, ?, ?)";
+
+                    using (OleDbCommand cmd = new OleDbCommand(healthQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", newPlantID);
+                        cmd.Parameters.AddWithValue("?", 100); // Default HP
+                        cmd.Parameters.AddWithValue("?", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")); // Format Date/Time
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show(isNewPlant ? "Plant added successfully." : "Plant updated successfully.");
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
@@ -197,6 +231,68 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 conn.Close();
             }
+            // if (string.IsNullOrEmpty(txtPlantName.Text) ||
+            //string.IsNullOrEmpty(txtWaterFreq.Text) ||
+            //string.IsNullOrEmpty(txtFertilization.Text))
+            // {
+            //     MessageBox.Show("Please fill all fields.");
+            //     return;
+            // }
+
+            // try
+            // {
+            //     conn.Open();
+
+            //     string query;
+
+            //     if (string.IsNullOrEmpty(plantID))   
+            //     {
+            //         query = "INSERT INTO Plants (PlantName, WateringFrequency, FertilizationSchedule, PlantImage) " +
+            //                 "VALUES (@name, @water, @fertilize, @image)";
+            //     }
+            //     else   
+            //     {
+            //         query = "UPDATE Plants SET PlantName = @name, WateringFrequency = @water, FertilizationSchedule = @fertilize, PlantImage = @image " +
+            //                 "WHERE PlantID = @id";
+            //     }
+
+            //     using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            //     {
+            //         cmd.Parameters.AddWithValue("@name", txtPlantName.Text);
+            //         cmd.Parameters.AddWithValue("@water", txtWaterFreq.Text);
+            //         cmd.Parameters.AddWithValue("@fertilize", txtFertilization.Text);
+
+
+            //         if (!string.IsNullOrEmpty(imagePath))  
+            //         {
+            //             byte[] imageBytes = File.ReadAllBytes(imagePath);
+            //             cmd.Parameters.AddWithValue("@image", imageBytes);
+            //         }
+            //         else  
+            //         {
+            //             cmd.Parameters.AddWithValue("@image", DBNull.Value);
+            //         }
+
+            //         if (!string.IsNullOrEmpty(plantID))   
+            //         {
+            //             cmd.Parameters.AddWithValue("@id", plantID);
+            //         }
+
+            //         cmd.ExecuteNonQuery();
+            //     }
+
+            //     MessageBox.Show(string.IsNullOrEmpty(plantID) ? "Plant added successfully." : "Plant updated successfully.");
+            //     this.DialogResult = DialogResult.OK;
+            //     this.Close();
+            // }
+            // catch (Exception ex)
+            // {
+            //     MessageBox.Show("Error: " + ex.Message);
+            // }
+            // finally
+            // {
+            //     conn.Close();
+            // }
         }
 
         private void button3_Click(object sender, EventArgs e)

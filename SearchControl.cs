@@ -24,6 +24,15 @@ namespace ONION_Your_Personal_PlantCare_Companion
             lblWateringFrequency.Text = "";
             lblFertilizationFrequency.Text = "";
             lblDescription.Text = "";
+            lblTemperature.Text = "";
+            lblSunlight.Text = "";
+            lblSoil.Text = "";
+            lblHeight.Text = "";
+            lblGrowthRate.Text = "";
+            lblFlowering.Text = "";
+            lblHumidity.Text = "";
+            lblPruning.Text = "";
+            flowLayoutPanel2.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,7 +49,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         private void LoadSearchResults(string search)
         {
             
-            searchContainer.Controls.Clear(); // Clear previous results
+            searchContainer.Controls.Clear();
             searchContainer.BringToFront();
 
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -101,9 +110,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             // Query the database for full plant details
             string query = @"SELECT PlantID, CommonName, ScientificName, 
-                            WateringFrequency, FertilizationFrequency, Description 
-                     FROM PlantDS
-                     WHERE PlantID = @PlantID";
+                             WateringFrequency, FertilizationFrequency, Description,
+                             OptimalTemperature, SunlightRequirement, SoilType, Height, 
+                             GrowthRate, FloweringSeason, Humidity, PruningRequirements
+                          FROM PlantDS
+                          WHERE PlantID = @PlantID";
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -115,11 +126,23 @@ namespace ONION_Your_Personal_PlantCare_Companion
                     {
                         if (reader.Read())
                         {
-                            lblCommonName.Text = $"Common Name: {reader["CommonName"]}";
-                            lblScientificName.Text = $"Scientific Name: {reader["ScientificName"]}";
-                            lblWateringFrequency.Text = $"Watering: {reader["WateringFrequency"]}";
-                            lblFertilizationFrequency.Text = $"Fertilizing: {reader["FertilizationFrequency"]}";
-                            lblDescription.Text = $"Description: {reader["Description"]}";
+                            flowLayoutPanel2.Visible = true;
+                            //label1.Visible = true;
+                            //label2.Visible = true;
+                            //label3.Visible = true;
+                            lblCommonName.Text = $"Common Name: {reader["CommonName"] ?? "N/A"}";
+                            lblScientificName.Text = $"Scientific Name: {reader["ScientificName"] ?? "N/A"}";
+                            lblWateringFrequency.Text = $"Watering: {reader["WateringFrequency"] ?? "N/A"}";
+                            lblFertilizationFrequency.Text = $"Fertilizing: {reader["FertilizationFrequency"] ?? "N/A"}";
+                            lblDescription.Text = $"Description: {reader["Description"] ?? "N/A"}";
+                            lblTemperature.Text = $"Optimal Temperature: {reader["OptimalTemperature"] ?? "N/A"}";
+                            lblSunlight.Text = $"Sunlight Requirement: {reader["SunlightRequirement"] ?? "N/A"}";
+                            lblSoil.Text = $"Soil Type: {reader["SoilType"] ?? "N/A"}";
+                            lblHeight.Text = $"Height: {reader["Height"] ?? "N/A"}";
+                            lblGrowthRate.Text = $"Growth Rate: {reader["GrowthRate"] ?? "N/A"}";
+                            lblFlowering.Text = $"Flowering Season: {reader["FloweringSeason"] ?? "N/A"}";
+                            lblHumidity.Text = $"Humidity: {reader["Humidity"] ?? "N/A"}";
+                            lblPruning.Text = $"Pruning Requirements: {reader["PruningRequirements"] ?? "N/A"}";
                         }
                     }
                 }
