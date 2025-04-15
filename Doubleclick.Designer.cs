@@ -45,14 +45,17 @@
             SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange progressColorRange13 = new SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange();
             SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange progressColorRange14 = new SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange();
             SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange progressColorRange15 = new SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange();
+            SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange progressColorRange16 = new SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange();
+            SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange progressColorRange17 = new SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange();
+            SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange progressColorRange18 = new SiticoneNetCoreUI.SiticoneRadialProgressBar.ProgressColorRange();
             panel1 = new Panel();
+            lblName = new Label();
             button1 = new Button();
             parrotBarGraph1 = new ReaLTaiizor.Controls.ParrotBarGraph();
             progressBar = new SiticoneNetCoreUI.SiticoneRadialProgressBar();
             lblLastFertilized = new Label();
             lblLastWatered = new Label();
             picImage = new PictureBox();
-            lblName = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picImage).BeginInit();
             SuspendLayout();
@@ -71,6 +74,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(802, 453);
             panel1.TabIndex = 0;
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Font = new Font("Leelawadee UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblName.Location = new Point(210, 39);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(70, 28);
+            lblName.TabIndex = 6;
+            lblName.Text = "label1";
             // 
             // button1
             // 
@@ -181,6 +194,15 @@
             progressColorRange15.Color = Color.Red;
             progressColorRange15.Maximum = 100D;
             progressColorRange15.Minimum = 67D;
+            progressColorRange16.Color = Color.Green;
+            progressColorRange16.Maximum = 33D;
+            progressColorRange16.Minimum = 0D;
+            progressColorRange17.Color = Color.Yellow;
+            progressColorRange17.Maximum = 66D;
+            progressColorRange17.Minimum = 34D;
+            progressColorRange18.Color = Color.Red;
+            progressColorRange18.Maximum = 100D;
+            progressColorRange18.Minimum = 67D;
             progressBar.ProgressColorRanges.Add(progressColorRange1);
             progressBar.ProgressColorRanges.Add(progressColorRange2);
             progressBar.ProgressColorRanges.Add(progressColorRange3);
@@ -196,6 +218,9 @@
             progressBar.ProgressColorRanges.Add(progressColorRange13);
             progressBar.ProgressColorRanges.Add(progressColorRange14);
             progressBar.ProgressColorRanges.Add(progressColorRange15);
+            progressBar.ProgressColorRanges.Add(progressColorRange16);
+            progressBar.ProgressColorRanges.Add(progressColorRange17);
+            progressBar.ProgressColorRanges.Add(progressColorRange18);
             progressBar.ProgressFont = new Font("Segoe UI", 14F, FontStyle.Bold);
             progressBar.ProgressThickness = 15F;
             progressBar.ReadonlyEndColor = Color.DarkGray;
@@ -240,16 +265,6 @@
             picImage.SizeMode = PictureBoxSizeMode.StretchImage;
             picImage.TabIndex = 0;
             picImage.TabStop = false;
-            // 
-            // lblName
-            // 
-            lblName.AutoSize = true;
-            lblName.Font = new Font("Leelawadee UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblName.Location = new Point(210, 39);
-            lblName.Name = "lblName";
-            lblName.Size = new Size(70, 28);
-            lblName.TabIndex = 6;
-            lblName.Text = "label1";
             // 
             // Doubleclick
             // 

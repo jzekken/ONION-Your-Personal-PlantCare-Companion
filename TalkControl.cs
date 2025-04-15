@@ -9,6 +9,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vosk;
+using NAudio.Wave;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
@@ -20,41 +22,79 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
         private List<(string sender, string message)> chatHistory = new List<(string, string)>();
         private readonly string historyFilePath = Path.Combine(Application.StartupPath, "chatHistory.json");
+
+        private WaveInEvent waveIn;
+        private VoskRecognizer recognizer;
+        private Model model;
+        private bool isListening = false;
         public TalkControl()
         {
             InitializeComponent();
             LoadChatHistory();
+            //InitializeVoiceRecognition();
+            //isListening = false;
         }
+        //private async void InitializeVoiceRecognition()
+        //{
+        //    try
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            model = new Model(Path.Combine(Application.StartupPath, "VoskModel"));
+        //            recognizer = new VoskRecognizer(model, 16000.0f);
+        //        });
 
-        private void inc1_Load(object sender, EventArgs e)
-        {
+        //        waveIn = new WaveInEvent
+        //        {
+        //            DeviceNumber = 0,
+        //            WaveFormat = new WaveFormat(16000, 1)
+        //        };
 
-        }
+        //        waveIn.DataAvailable += (sender, e) =>
+        //        {
+        //            if (recognizer.AcceptWaveform(e.Buffer, e.BytesRecorded))
+        //            {
+        //                string result = recognizer.Result();
+        //                Console.WriteLine($"Recognized: {result}");
+        //                UpdateTextbox(result);
+        //            }
+        //        };
+
+        //        waveIn.StartRecording();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error initializing voice recognition: {ex.Message}");
+        //    }
+        //}
+        //private void UpdateTextbox(string recognizedText)
+        //{
+        //    if (InvokeRequired)
+        //    {
+        //        Invoke(new Action(() => UpdateTextbox(recognizedText)));
+        //        return;
+        //    }
+
+        //    txtUserInput.Text = recognizedText;
+        //}
+
+
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            //addOutgoing(txtUserInput.Text);  
-            //txtUserInput.Text = string.Empty;
-            //string userMessage = txtUserInput.Text.Trim();
-            //if (string.IsNullOrEmpty(userMessage)) return;
 
-            //rtbChat.AppendText($"You: {userMessage}\n");
-            //txtUserInput.Clear();
-
-            //string botResponse = await GetAIResponse(userMessage);
-            //rtbChat.AppendText($"Onion: {botResponse}\n");
 
             string userMessage = txtUserInput.Text.Trim();
             if (string.IsNullOrEmpty(userMessage)) return;
 
-            AddOutgoingMessage(userMessage);  // Show user's message as a bubble
-            chatHistory.Add(("You", userMessage));  // Save to history
+            AddOutgoingMessage(userMessage);
+            chatHistory.Add(("You", userMessage));
             SaveChatHistory();
             txtUserInput.Clear();
 
             string botResponse = await GetAIResponse(userMessage);
             AddIncomingMessage(botResponse);
-            chatHistory.Add(("Onion", botResponse));  // Save to history
+            chatHistory.Add(("Onion", botResponse));
             SaveChatHistory();
         }
         private void AddIncomingMessage(string message)
@@ -94,27 +134,27 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             try
             {
-                // Prepare the chat history for context
+
                 var chatContext = new List<object>();
 
-                // Add the previous conversation history (last 10 exchanges)
-                foreach (var (sender, msg) in chatHistory.TakeLast(10))  // Renamed 'message' to 'msg'
+
+                foreach (var (sender, msg) in chatHistory.TakeLast(10))
                 {
                     chatContext.Add(new
                     {
                         role = sender == "You" ? "user" : "model",
-                        parts = new[] { new { text = msg } }  // Use 'msg' here
+                        parts = new[] { new { text = msg } }
                     });
                 }
 
-                // Add the current user message
+
                 chatContext.Add(new
                 {
                     role = "user",
                     parts = new[] { new { text = userMessage } }
                 });
 
-                // Prepare the request body
+
                 var requestBody = new { contents = chatContext };
 
                 var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
@@ -128,7 +168,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
                 dynamic result = JsonConvert.DeserializeObject(jsonResponse);
 
-                // Extract the AI's response message
+
                 string aiResponse = result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
                 aiResponse = System.Text.RegularExpressions.Regex.Replace(aiResponse, @"[*_`]", "");  // Clean up formatting
                 return aiResponse;
@@ -138,40 +178,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 return $"Exception: {ex.Message}";
             }
         }
-
-
-
-        //private async Task<string> GetAIResponse(string userMessage)
-        //{
-        //    try
-        //    {
-        //        var requestBody = new
-        //        {
-        //            contents = new[]
-        //            {
-        //        new { parts = new[] { new { text = userMessage } } }
-        //    }
-        //        };
-
-        //        var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-
-        //        HttpResponseMessage response = await client.PostAsync(API_URL, content);
-        //        string jsonResponse = await response.Content.ReadAsStringAsync();
-        //        Console.WriteLine($"Response: {jsonResponse}");  // Debugging ina
-
-        //        if (!response.IsSuccessStatusCode)
-        //            return $"Error: {response.StatusCode} - {jsonResponse}";
-
-        //        dynamic result = JsonConvert.DeserializeObject(jsonResponse);
-        //        string message = result?.candidates?[0]?.content?.parts?[0]?.text ?? "No response.";
-        //        message = System.Text.RegularExpressions.Regex.Replace(message, @"[*_`]", "");
-        //        return message;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return $"Exception: {ex.Message}";
-        //    }
-        //}
 
         private void TalkControl_Load(object sender, EventArgs e)
         {
@@ -236,5 +242,36 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 MessageBox.Show("Chat history cleared.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void attachbtn_Click(object sender, EventArgs e)
+        {
+            PlantIdentifier plantIdentifier = new PlantIdentifier();
+            plantIdentifier.ShowDialog();
+        }
+
+        //private void toggleVoiceBtn_Click_1(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (!isListening)
+        //        {
+        //            // Start recording
+        //            waveIn.StartRecording();
+        //            toggleVoiceBtn.BackColor = Color.Red;
+        //            isListening = true;  // Set the flag to true indicating that we are listening
+        //        }
+        //        else
+        //        {
+        //            // Stop recording
+        //            waveIn.StopRecording();
+        //            toggleVoiceBtn.BackColor = Color.Green;
+        //            isListening = false;  // Set the flag to false indicating that we are not listening anymore
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error while toggling voice recording: {ex.Message}");
+        //    }
+        //}
     }
 }

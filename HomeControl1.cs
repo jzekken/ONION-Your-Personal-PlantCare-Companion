@@ -16,23 +16,22 @@ using OxyPlot.WindowsForms;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-    public partial class HomeControl1 : UserControl
+    public partial class HomeControl1 : BaseUserControl
     {
-        OleDbConnection? myConn;
-        OleDbDataAdapter? da;
-        DataSet? ds;
+
         public HomeControl1()
         {
             InitializeComponent();
-            InitializeDatabase();
             LoadPlants();
 
         }
-        private void InitializeDatabase()
+
+        private async void LoadPlants()
         {
             try
             {
-                myConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Users\\ACER ASPIRE 3\\source\\repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\PlantData.accdb\"");
+                flowLayoutPanel1.Controls.Clear();
+                ds.Clear();
 
                 string query = @"SELECT 
                                 p.PlantID, 
@@ -52,38 +51,19 @@ namespace ONION_Your_Personal_PlantCare_Companion
                                 h.RecordedDate = 
                                 (SELECT MAX(RecordedDate) FROM HealthHistory WHERE PlantID = p.PlantID);
                             ";
-                    
-                da = new OleDbDataAdapter(query, myConn);
-                ds = new DataSet();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error initializing database: " + ex.Message);
-            }
-        }
-        private async void LoadPlants()
-        {
-            try
-            {
-                flowLayoutPanel1.Controls.Clear();
-                ds.Clear();
 
-                await Task.Run(() =>
-                {
-                    myConn.Open();
-                    da.Fill(ds, "Plants");
-                    myConn.Close();
-                });
+                DataTable plantsTable = await FetchDataAsync(query);
 
-                foreach (DataRow row in ds.Tables["Plants"].Rows)
+
+                foreach (DataRow row in plantsTable.Rows)
                 {
                     homeplant plantControl = new homeplant
                     {
-                        PlantName = row["PlantName"].ToString(),
-                        HealthPercentage = Convert.ToInt32(row["HealthValue"]),
+                        PlantName = row["PlantName"]?.ToString() ?? "Unknown Plant",
+                        HealthPercentage = row["HealthValue"] != DBNull.Value ? Convert.ToInt32(row["HealthValue"]) : 0,
                         PlantImage = row["PlantImage"] != DBNull.Value ? Image.FromStream(new MemoryStream((byte[])row["PlantImage"])) : null,
-                        LastWatered = Convert.ToDateTime(row["LastWatered"]),
-                        LastFertilized = Convert.ToDateTime(row["LastFertilized"])
+                        LastWatered = row["LastWatered"] != DBNull.Value ? Convert.ToDateTime(row["LastWatered"]) : DateTime.MinValue,
+                        LastFertilized = row["LastFertilized"] != DBNull.Value ? Convert.ToDateTime(row["LastFertilized"]) : DateTime.MinValue
                     };
 
                     flowLayoutPanel1.Controls.Add(plantControl);
@@ -95,7 +75,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
         }
 
-
+        
     }
 
 }

@@ -12,8 +12,8 @@ using NAudio.Wave;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-    
-    public partial class Form2 : Form
+
+    public partial class Form2 : BaseForm
     {
         private Button activeButton;
         private WaveInEvent waveIn;
@@ -24,7 +24,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public Form2()
         {
             InitializeComponent();
-            MakeFormRounded();
+            this.Opacity = 0;
+            fadeInTimer.Start();
+            timer.Interval = 1000; // 1000 milliseconds = 1 second
+            timer.Tick += timer_Tick;
+            timer.Start(); // Start the timer
+
+            // Optional: Set initial date and time
+            lblDateTime.Text = DateTime.Now.ToString("F");
             EnableDoubleBuffering();
             LoadUserControl(new HomeControl1(), homebtn);
             InitializeVoiceRecognition();
@@ -36,34 +43,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 System.Reflection.BindingFlags.NonPublic)
                 .SetValue(mainPanel, true, null);
         }
-        private void MakeFormRounded()
-        {
-            // Set the form's border style to None to remove the default border
-            this.FormBorderStyle = FormBorderStyle.None;
 
-            // Define the radius of the rounded corners
-            int radius = 30;
-
-            // Create a GraphicsPath to define the form shape
-            System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
-
-            // Create a rounded rectangle path
-            path.AddArc(0, 0, radius, radius, 180, 90); // top-left corner
-            path.AddArc(this.Width - radius - 1, 0, radius, radius, 270, 90); // top-right corner
-            path.AddArc(this.Width - radius - 1, this.Height - radius - 1, radius, radius, 0, 90); // bottom-right corner
-            path.AddArc(0, this.Height - radius - 1, radius, radius, 90, 90); // bottom-left corner
-            path.CloseAllFigures(); // Close the path to create a full rounded rectangle
-
-            // Set the form’s region to the defined path
-            this.Region = new Region(path);
-        }
-
-        // Optional: Allow resizing of the form (with rounded corners)
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            MakeFormRounded(); // Reapply the rounded corners when the form is resized
-        }
         private async void InitializeVoiceRecognition()
         {
             try
@@ -111,7 +91,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
             if (command.Contains("open ai") || command.Contains("a i"))
             {
-                LoadUserControl(new TalkControl(), talkbtn);  // Open the Talk tab
+                LoadUserControl(new TalkControl(), talkbtn);
             }
             else if (command.Contains("open home") || command.Contains("home"))
             {
@@ -154,36 +134,22 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 this.WindowState = FormWindowState.Normal;
             }
         }
-        //private void LoadUserControl(UserControl userControl, Button clickedButton)
-        //{
-        //    mainPanel.Controls.Clear();
-        //    userControl.Dock = DockStyle.Fill;
-        //    mainPanel.Controls.Add(userControl);
 
-        //    if (activeButton != null)
-        //    {
-        //        activeButton.BackColor = Color.FromArgb(224, 239, 204);
-        //    }
-
-
-        //    clickedButton.BackColor = Color.LightGreen;
-        //    activeButton = clickedButton;
-        //}
         private async void LoadUserControl(UserControl userControl, Button clickedButton)
         {
             if (mainPanel.Controls.Count > 0)
             {
                 var currentControl = mainPanel.Controls[0];
 
-                // Faster fade-out (reduce iterations)
-                for (int i = 100; i >= 0; i -= 25)  // Change step size from 10 to 25
+
+                for (int i = 100; i >= 0; i -= 25)
                 {
                     currentControl.BackColor = Color.FromArgb(i * 255 / 100, currentControl.BackColor);
-                    await Task.Delay(5);  // Reduce delay from 10ms to 5ms
+                    await Task.Delay(5);
                 }
 
                 mainPanel.Controls.Clear();
-                currentControl.Dispose(); // Free memory
+                currentControl.Dispose();
             }
 
             mainPanel.SuspendLayout();
@@ -193,14 +159,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
             mainPanel.ResumeLayout();
             mainPanel.Refresh();
 
-            // Faster fade-in
+
             for (int i = 0; i <= 100; i += 25)
             {
                 userControl.BackColor = Color.FromArgb(i * 255 / 100, userControl.BackColor);
                 await Task.Delay(5);
             }
 
-            // Highlight active button
+
             if (activeButton != null)
                 activeButton.BackColor = Color.FromArgb(224, 239, 204);
 
@@ -288,6 +254,23 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
 
             isVoiceEnabled = !isVoiceEnabled;
+        }
+
+        private void fadeInTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Opacity < 1)
+            {
+                this.Opacity += 0.02; // Adjust this value for faster/slower fade
+            }
+            else
+            {
+                fadeInTimer.Stop(); // Stop the timer once the form is fully visible
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            lblDateTime.Text = DateTime.Now.ToString("F");
         }
     }
 }

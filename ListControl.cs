@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-    public partial class ListControl : UserControl
+    public partial class ListControl : BaseUserControl
     {
         OleDbConnection? myConn;
         OleDbDataAdapter? da;
@@ -47,55 +47,13 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 MessageBox.Show("Error initializing database: " + ex.Message);
             }
         }
-        private void HandlePlantControlEvents()
-        {
-            foreach (Plantdata plantControl in flowLayoutPanel1.Controls)
-            {
-                plantControl.UpdateClicked += (s, e) =>
-                {
-                    string plantID = plantControl.PlantID;
-                    MessageBox.Show($"Update plant with ID: {plantID}");
-
-                    // Open the AddPlant form in edit mode
-                    AddPlant editForm = new AddPlant(plantID);
-                    editForm.ShowDialog();
-
-                    LoadPlants();  // Reload after update
-                };
-
-                plantControl.DeleteClicked += (s, e) =>
-                {
-                    string plantID = plantControl.PlantID;
-
-                    try
-                    {
-                        using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Users\\ACER ASPIRE 3\\source\\repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\PlantData.accdb\""))
-                        {
-                            conn.Open();
-                            string query = "DELETE FROM Plants WHERE PlantID = ?";
-                            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@PlantID", plantID);
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        MessageBox.Show($"Plant with ID {plantID} deleted successfully.");
-                        LoadPlants();  // Reload the plant list
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error deleting plant: " + ex.Message);
-                    }
-                };
-            }
-        }
-        private void button1_Click(object sender, EventArgs e) //add button
+        
+        private void button1_Click(object sender, EventArgs e) 
         {
             AddPlant addForm = new AddPlant();
             if (addForm.ShowDialog() == DialogResult.OK)
             {
-                LoadPlants();  // Refresh the list when a plant is added
+                LoadPlants(); 
             }
         }
         private void LoadPlants()
@@ -120,7 +78,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             FertilizationSchedule = row["FertilizationSchedule"].ToString()
                         };
 
-                        //Load the plant image
+                        
                         if (row["PlantImage"] != DBNull.Value)
                         {
                             byte[] imageBytes = (byte[])row["PlantImage"];
@@ -130,12 +88,12 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             }
                         }
 
-                        //Button event handlers
+                        
                         plantControl.UpdateClicked += (s, e) =>
                         {
                             string plantID = plantControl.PlantID;
 
-                            // Open the AddPlant form in edit mode with the plant ID
+                            
                             AddPlant editForm = new AddPlant(plantID);
 
                             if (editForm.ShowDialog() == DialogResult.OK)
@@ -170,7 +128,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                             }
                         };
 
-                        // Add the plant control
+                        
                         flowLayoutPanel1.Controls.Add(plantControl);
                     }
                     lblPlantCount.Text = $"Total Plants: {ds.Tables["Plants"].Rows.Count}";
@@ -234,7 +192,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         FertilizationSchedule = row["FertilizationSchedule"].ToString()
                     };
 
-                    // Load plant image
+                    
                     if (row["PlantImage"] != DBNull.Value)
                     {
                         byte[] imageBytes = (byte[])row["PlantImage"];

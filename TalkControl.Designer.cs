@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TalkControl));
             panel1 = new Panel();
+            attachbtn = new Button();
+            toggleVoiceBtn = new Button();
             button1 = new Button();
             btnSend = new Button();
             txtUserInput = new TextBox();
@@ -40,6 +42,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(228, 239, 231);
+            panel1.Controls.Add(attachbtn);
+            panel1.Controls.Add(toggleVoiceBtn);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(btnSend);
             panel1.Controls.Add(txtUserInput);
@@ -48,6 +52,32 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1012, 125);
             panel1.TabIndex = 0;
+            // 
+            // attachbtn
+            // 
+            attachbtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            attachbtn.FlatAppearance.BorderSize = 0;
+            attachbtn.FlatStyle = FlatStyle.Flat;
+            attachbtn.Image = (Image)resources.GetObject("attachbtn.Image");
+            attachbtn.Location = new Point(761, 62);
+            attachbtn.Name = "attachbtn";
+            attachbtn.Size = new Size(30, 25);
+            attachbtn.TabIndex = 1;
+            attachbtn.UseVisualStyleBackColor = true;
+            attachbtn.Click += attachbtn_Click;
+            // 
+            // toggleVoiceBtn
+            // 
+            toggleVoiceBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            toggleVoiceBtn.FlatAppearance.BorderSize = 0;
+            toggleVoiceBtn.FlatStyle = FlatStyle.Flat;
+            toggleVoiceBtn.Image = (Image)resources.GetObject("toggleVoiceBtn.Image");
+            toggleVoiceBtn.Location = new Point(797, 62);
+            toggleVoiceBtn.Name = "toggleVoiceBtn";
+            toggleVoiceBtn.Size = new Size(30, 25);
+            toggleVoiceBtn.TabIndex = 1;
+            toggleVoiceBtn.UseVisualStyleBackColor = true;
+            toggleVoiceBtn.Visible = false;
             // 
             // button1
             // 
@@ -124,5 +154,7 @@
         private TextBox txtUserInput;
         private TableLayoutPanel panelContainer;
         private Button button1;
+        private Button toggleVoiceBtn;
+        private Button attachbtn;
     }
 }

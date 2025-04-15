@@ -39,6 +39,7 @@
             plantdata2 = new Plantdata();
             plantdata3 = new Plantdata();
             plantdata4 = new Plantdata();
+            ((System.ComponentModel.ISupportInitialize)ds).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             flowLayoutPanel1.SuspendLayout();
@@ -68,19 +69,17 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label1.AutoSize = true;
+            label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label1.Font = new Font("Leelawadee UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(283, 21);
             label1.Name = "label1";
-            label1.Size = new Size(175, 60);
+            label1.Size = new Size(196, 60);
             label1.TabIndex = 4;
             label1.Text = "ONION";
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label2.AutoSize = true;
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label2.Font = new Font("Leelawadee UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ButtonShadow;
             label2.Location = new Point(286, 81);
@@ -91,8 +90,7 @@
             // 
             // label3
             // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label3.AutoSize = true;
+            label3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label3.Font = new Font("Leelawadee UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.Location = new Point(286, 116);
             label3.Name = "label3";
@@ -116,47 +114,47 @@
             // 
             // plantdata1
             // 
-            plantdata1.FertilizationSchedule = "Fertilization: Fertilization: Fertilization Schedule:";
+            plantdata1.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
             plantdata1.Location = new Point(3, 3);
             plantdata1.Name = "plantdata1";
             plantdata1.PlantID = null;
             plantdata1.PlantName = "Plant: ";
             plantdata1.Size = new Size(288, 243);
             plantdata1.TabIndex = 0;
-            plantdata1.WateringFrequency = "Watering: Watering: Watering Frequency:";
+            plantdata1.WateringFrequency = "Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering Frequency:";
             // 
             // plantdata2
             // 
-            plantdata2.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
+            plantdata2.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
             plantdata2.Location = new Point(297, 3);
             plantdata2.Name = "plantdata2";
             plantdata2.PlantID = null;
             plantdata2.PlantName = "Plant: ";
             plantdata2.Size = new Size(288, 243);
             plantdata2.TabIndex = 1;
-            plantdata2.WateringFrequency = "Watering: Watering: Watering: Watering Frequency:";
+            plantdata2.WateringFrequency = "Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering Frequency:";
             // 
             // plantdata3
             // 
-            plantdata3.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
+            plantdata3.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
             plantdata3.Location = new Point(591, 3);
             plantdata3.Name = "plantdata3";
             plantdata3.PlantID = null;
             plantdata3.PlantName = "Plant: ";
             plantdata3.Size = new Size(288, 243);
             plantdata3.TabIndex = 2;
-            plantdata3.WateringFrequency = "Watering: Watering: Watering: Watering Frequency:";
+            plantdata3.WateringFrequency = "Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering Frequency:";
             // 
             // plantdata4
             // 
-            plantdata4.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
+            plantdata4.FertilizationSchedule = "Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization: Fertilization Schedule:";
             plantdata4.Location = new Point(885, 3);
             plantdata4.Name = "plantdata4";
             plantdata4.PlantID = null;
             plantdata4.PlantName = "Plant: ";
             plantdata4.Size = new Size(288, 243);
             plantdata4.TabIndex = 2;
-            plantdata4.WateringFrequency = "Watering: Watering: Watering: Watering: Watering Frequency:";
+            plantdata4.WateringFrequency = "Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering: Watering Frequency:";
             // 
             // HomeControl1
             // 
@@ -166,8 +164,8 @@
             Controls.Add(panel1);
             Name = "HomeControl1";
             Size = new Size(1030, 676);
+            ((System.ComponentModel.ISupportInitialize)ds).EndInit();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);

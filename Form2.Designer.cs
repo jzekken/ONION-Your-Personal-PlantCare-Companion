@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             panel1 = new Panel();
             minbtn = new Button();
             maxbtn = new Button();
             button7 = new Button();
+            lblDateTime = new Label();
             label1 = new Label();
             panel2 = new Panel();
             toggleVoiceBtn = new Button();
@@ -46,6 +48,8 @@
             homebtn = new Button();
             label2 = new Label();
             mainPanel = new Panel();
+            fadeInTimer = new System.Windows.Forms.Timer(components);
+            timer = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -57,6 +61,7 @@
             panel1.Controls.Add(minbtn);
             panel1.Controls.Add(maxbtn);
             panel1.Controls.Add(button7);
+            panel1.Controls.Add(lblDateTime);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -103,6 +108,17 @@
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
+            // lblDateTime
+            // 
+            lblDateTime.AutoSize = true;
+            lblDateTime.Font = new Font("Leelawadee UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDateTime.Location = new Point(250, 11);
+            lblDateTime.Name = "lblDateTime";
+            lblDateTime.Padding = new Padding(10, 0, 0, 0);
+            lblDateTime.Size = new Size(87, 28);
+            lblDateTime.TabIndex = 0;
+            lblDateTime.Text = "ONION";
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -137,9 +153,9 @@
             // 
             toggleVoiceBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             toggleVoiceBtn.FlatStyle = FlatStyle.Flat;
-            toggleVoiceBtn.Location = new Point(150, 421);
+            toggleVoiceBtn.Location = new Point(154, 430);
             toggleVoiceBtn.Name = "toggleVoiceBtn";
-            toggleVoiceBtn.Size = new Size(94, 29);
+            toggleVoiceBtn.Size = new Size(94, 26);
             toggleVoiceBtn.TabIndex = 2;
             toggleVoiceBtn.Text = "Disable Voice";
             toggleVoiceBtn.UseVisualStyleBackColor = true;
@@ -303,6 +319,15 @@
             mainPanel.Size = new Size(1030, 676);
             mainPanel.TabIndex = 2;
             // 
+            // fadeInTimer
+            // 
+            fadeInTimer.Interval = 30;
+            fadeInTimer.Tick += fadeInTimer_Tick;
+            // 
+            // timer
+            // 
+            timer.Tick += timer_Tick;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -313,7 +338,6 @@
             Controls.Add(mainPanel);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(800, 600);
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
@@ -344,5 +368,8 @@
         private Button maxbtn;
         private PictureBox pictureBox1;
         private Button toggleVoiceBtn;
+        private System.Windows.Forms.Timer fadeInTimer;
+        private Label lblDateTime;
+        private System.Windows.Forms.Timer timer;
     }
 }

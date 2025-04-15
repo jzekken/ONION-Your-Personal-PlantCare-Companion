@@ -12,7 +12,7 @@ using System.Data.OleDb;
 namespace ONION_Your_Personal_PlantCare_Companion
 {
 
-    public partial class SearchControl : UserControl
+    public partial class SearchControl : BaseUserControl
     {
         private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ACER ASPIRE 3\Source\Repos\ONION-Your-Personal-PlantCare-Companion\Resources\PlantData.accdb;";
 
@@ -150,12 +150,12 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
                                 using (MemoryStream ms = new MemoryStream(imageData))
                                 {
-                                    pictureBox1.Image = Image.FromStream(ms); // Display in PictureBox
+                                    pictureBox1.Image = Image.FromStream(ms); 
                                 }
                             }
                             else
                             {
-                                pictureBox1.Image = null; // No image found
+                                pictureBox1.Image = null;
                             }
                         }
                     }

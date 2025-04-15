@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-    public partial class GardenControl : UserControl
+    public partial class GardenControl : BaseUserControl
     {
         private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ACER ASPIRE 3\Source\Repos\ONION-Your-Personal-PlantCare-Companion\Resources\PlantData.accdb;";
         public GardenControl()

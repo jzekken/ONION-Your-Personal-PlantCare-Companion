@@ -15,10 +15,10 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
         public Doubleclick(string plantName, Image plantImage, DateTime lastWatered, DateTime lastFertilized)
         {
-            InitializeComponent(); // Don't forget to call InitializeComponent()
+            InitializeComponent(); 
             lblName.Text = plantName;
 
-            picImage.Image = plantImage;  // Set plant image
+            picImage.Image = plantImage; 
             lblLastWatered.Text = "Last Watered: " + lastWatered.ToString("MM/dd/yyyy");
             lblLastFertilized.Text = "Last Fertilized: " + lastFertilized.ToString("MM/dd/yyyy");
         }

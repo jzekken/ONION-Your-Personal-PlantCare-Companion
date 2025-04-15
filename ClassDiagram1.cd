@@ -7,100 +7,112 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Chat.Inc" Collapsed="true">
-    <Position X="8.75" Y="1.5" Width="1.5" />
+    <Position X="10.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAABAAAASAAAACAEIAAACAAAAAIABAAAA=</HashCode>
       <FileName>Chat\Inc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Chat.IncomingBubble" Collapsed="true">
-    <Position X="3.5" Y="2.5" Width="1.5" />
+    <Position X="14" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAACAAAAAAAACAAABCAIAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Chat\IncomingBubble.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Chat.Out" Collapsed="true">
-    <Position X="7" Y="2.5" Width="1.5" />
+    <Position X="15.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACBAABAAAASAAAACAEIAAACAAAAAIABAAAA=</HashCode>
       <FileName>Chat\Out.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Chat.OutgoingBubble" Collapsed="true">
-    <Position X="8.75" Y="2.5" Width="1.5" />
+    <Position X="17.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAACAAAAAAAACAAABCAIAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Chat\OutgoingBubble.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.AboutControl" Collapsed="true">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAQAACAAABAAAACAAAACAAA4AAAAAAAAAQBAACA=</HashCode>
       <FileName>AboutControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.AddPlant" Collapsed="true">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="12.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAABECAAABAAgASAAAACAAQ4AAAAAHABAUBAEAA=</HashCode>
-      <FileName>AddPlant.cs</FileName>
+      <HashCode>AAAAAAABACAAABAAAASAAAACAAA4AAAAAAAAAUAAEAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ONION_Your_Personal_PlantCare_Companion.BaseForm">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACAAAAAAAAAQAAAAAAAAAAAAAgAAAgCAAAAAAA=</HashCode>
+      <FileName>BaseForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ONION_Your_Personal_PlantCare_Companion.BaseUserControl" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABgAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>BaseUserControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Doubleclick" Collapsed="true">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="14" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAQACAAAAAAAACAAAACAAAIAAAAAAABQQAAAgI=</HashCode>
-      <FileName>Doubleclick.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Form1" Collapsed="true">
-    <Position X="8.75" Y="0.5" Width="1.5" />
+    <Position X="15.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAACAACAAAAAAQICQAAgCAAEYAACAAGACAQBIAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ONION_Your_Personal_PlantCare_Companion.Form2" Collapsed="true">
-    <Position X="10.5" Y="0.5" Width="1.5" />
+  <Class Name="ONION_Your_Personal_PlantCare_Companion.Form2">
+    <Position X="4.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAIACAACAAABAgQACQAKBClEUCEAygBAhbAwJIAQI=</HashCode>
+      <HashCode>AAIAIACAACAAABAgAACQAKBClEUCEAygBAhZAwJIAQI=</HashCode>
       <FileName>Form2.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ONION_Your_Personal_PlantCare_Companion.GardenControl" Collapsed="true">
-    <Position X="3.5" Y="1.5" Width="1.5" />
+  <Class Name="ONION_Your_Personal_PlantCare_Companion.GardenControl">
+    <Position X="1.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIhAAACAAAQgAAASAQEACAAAAAAAAQAAgAAhAACA=</HashCode>
       <FileName>GardenControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.HomeControl1" Collapsed="true">
-    <Position X="5.25" Y="1.5" Width="1.5" />
+    <Position X="3.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAACAAABAAAACAAAACAIAAAAAAIA0CAQhAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAIAAAAAAIA0AAQhAAAA=</HashCode>
       <FileName>HomeControl1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.homeplant" Collapsed="true">
-    <Position X="7" Y="1.5" Width="1.5" />
+    <Position X="17.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIQQCgAABEAAACIQAACAAAAAAAAAIAQBAAAAAA=</HashCode>
+      <HashCode>QAAAAAIQQCgAABEAAACIQAACAAAACAAAAIAQBAAAAAA=</HashCode>
       <FileName>homeplant.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Incoming" Collapsed="true">
-    <Position X="10.5" Y="1.5" Width="1.5" />
+    <Position X="12.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAABAAAASAAAACAEIAAACAAAAAIABAAAA=</HashCode>
       <FileName>Incoming.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.ListControl" Collapsed="true">
-    <Position X="5.25" Y="2.5" Width="1.5" />
+    <Position X="5.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAkAAAAACAFAAQAAACABAAiAIAIAAAAuE0CAQgABAA=</HashCode>
+      <HashCode>AAAkAAAAACAEAAQAAACABAAiAIAIAAAAuE0CAQgABAA=</HashCode>
       <FileName>ListControl.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -112,56 +124,56 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Plantdata" Collapsed="true">
-    <Position X="3.5" Y="3.5" Width="1.5" />
+    <Position X="12.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAgAIAQCAIAAEQAACAQKACBAAAAAAAAIAAAQAACQQ=</HashCode>
       <FileName>Plantdata.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.PlantDetails" Collapsed="true">
-    <Position X="5.25" Y="3.5" Width="1.5" />
+    <Position X="14" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAACAQACAoIAAAAACAACgCQAAAEAAAAAAAAABAAAA=</HashCode>
       <FileName>PlantDetails.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.PottedPlants" Collapsed="true">
-    <Position X="7" Y="3.5" Width="1.5" />
+    <Position X="15.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEEAAACACAAABgCAACAAAACAAAYAAAAEGAAAYIAEAg=</HashCode>
       <FileName>PottedPlants.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Program" Collapsed="true">
-    <Position X="8.75" Y="3.5" Width="1.5" />
+    <Position X="17.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.result" Collapsed="true">
-    <Position X="3.5" Y="4.5" Width="1.5" />
+    <Position X="12.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAACAQACAAIAAAAACAAAADAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>result.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ONION_Your_Personal_PlantCare_Companion.SearchControl" Collapsed="true">
-    <Position X="5.25" Y="4.5" Width="1.5" />
+  <Class Name="ONION_Your_Personal_PlantCare_Companion.SearchControl">
+    <Position X="8" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EABEACAAAyAIABgAABCAQQiCQIAJAIAAAEAACQRAAAI=</HashCode>
       <FileName>SearchControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.TalkControl" Collapsed="true">
-    <Position X="7" Y="4.5" Width="1.5" />
+    <Position X="14" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAACgAABQACIKAAAESAAAoAUgAAEAAJQAAAAA=</HashCode>
+      <HashCode>AAABAAAEACAAABQACIKQAAESAAEoAUgAAEAAJQIIAAA=</HashCode>
       <FileName>TalkControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ONION_Your_Personal_PlantCare_Companion.Utils" Collapsed="true">
-    <Position X="8.75" Y="4.5" Width="1.5" />
+    <Position X="15.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utils.cs</FileName>
