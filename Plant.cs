@@ -12,8 +12,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public string PlantName { get; set; }
         public DateTime LastWatered { get; set; }
         public DateTime LastFertilized { get; set; }
+        public DateTime DatePlanted { get; set; } 
         public int WateringFrequency { get; set; }
-        public int FertilizationFrequency { get; set; }
+        public int FertilizationSchedule { get; set; } 
+        public DateTime LastHealthCheck { get; set; }   
+
         public System.Drawing.Image PlantImage { get; set; }
 
         public int Health { get; set; } = 100;
@@ -35,7 +38,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             bool healthChanged = false;
 
             DateTime nextWaterDate = LastWatered.AddDays(WateringFrequency);
-            DateTime nextFertilizeDate = LastFertilized.AddDays(FertilizationFrequency);
+            DateTime nextFertilizeDate = LastFertilized.AddDays(FertilizationSchedule);
 
             int missedWaterDays = (currentDate - nextWaterDate).Days;
             if (missedWaterDays > WaterTolerance)

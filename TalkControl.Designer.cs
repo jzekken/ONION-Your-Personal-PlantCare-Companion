@@ -32,7 +32,7 @@
             panel1 = new Panel();
             attachbtn = new Button();
             toggleVoiceBtn = new Button();
-            button1 = new Button();
+            clearbtn = new Button();
             btnSend = new Button();
             txtUserInput = new TextBox();
             panelContainer = new TableLayoutPanel();
@@ -44,7 +44,7 @@
             panel1.BackColor = Color.FromArgb(228, 239, 231);
             panel1.Controls.Add(attachbtn);
             panel1.Controls.Add(toggleVoiceBtn);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(clearbtn);
             panel1.Controls.Add(btnSend);
             panel1.Controls.Add(txtUserInput);
             panel1.Dock = DockStyle.Bottom;
@@ -77,20 +77,20 @@
             toggleVoiceBtn.Size = new Size(30, 25);
             toggleVoiceBtn.TabIndex = 1;
             toggleVoiceBtn.UseVisualStyleBackColor = true;
-            toggleVoiceBtn.Visible = false;
+            toggleVoiceBtn.Click += toggleVoiceBtn_Click;
             // 
-            // button1
+            // clearbtn
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(982, 100);
-            button1.Name = "button1";
-            button1.Size = new Size(30, 25);
-            button1.TabIndex = 1;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_1;
+            clearbtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            clearbtn.FlatAppearance.BorderSize = 0;
+            clearbtn.FlatStyle = FlatStyle.Flat;
+            clearbtn.Image = (Image)resources.GetObject("clearbtn.Image");
+            clearbtn.Location = new Point(982, 100);
+            clearbtn.Name = "clearbtn";
+            clearbtn.Size = new Size(30, 25);
+            clearbtn.TabIndex = 1;
+            clearbtn.UseVisualStyleBackColor = true;
+            clearbtn.Click += clearbtn_Click;
             // 
             // btnSend
             // 
@@ -153,7 +153,7 @@
         private Button btnSend;
         private TextBox txtUserInput;
         private TableLayoutPanel panelContainer;
-        private Button button1;
+        private Button clearbtn;
         private Button toggleVoiceBtn;
         private Button attachbtn;
     }

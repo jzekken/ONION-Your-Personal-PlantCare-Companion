@@ -101,7 +101,7 @@
             Controls.Add(picPlant);
             Name = "homeplant";
             Size = new Size(288, 382);
-            DoubleClick += homeplant_DoubleClick;
+            
             MouseDoubleClick += homeplant_MouseDoubleClick;
             ((System.ComponentModel.ISupportInitialize)picPlant).EndInit();
             ResumeLayout(false);

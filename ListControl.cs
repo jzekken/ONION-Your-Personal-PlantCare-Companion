@@ -35,7 +35,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
                 myConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Users\\ACER ASPIRE 3\\source\\repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\PlantData.accdb\"");
 
-                string query = @"SELECT Plants.PlantID, Plants.PlantName, Plants.WateringFrequency, Plants.FertilizationSchedule, Plants.PlantImage FROM Plants;";
+                string query = @"SELECT Plants.PlantID, Plants.PlantName, Plants.WateringFrequency, 
+                        Plants.FertilizationSchedule, Plants.PlantImage, Plants.Health, 
+                        Plants.DatePlanted 
+                 FROM Plants;";
+
 
                 da = new OleDbDataAdapter(query, myConn);
                 ds = new DataSet();

@@ -31,52 +31,66 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             InitializeComponent();
             LoadChatHistory();
-            //InitializeVoiceRecognition();
-            //isListening = false;
+
         }
-        //private async void InitializeVoiceRecognition()
-        //{
-        //    try
-        //    {
-        //        await Task.Run(() =>
-        //        {
-        //            model = new Model(Path.Combine(Application.StartupPath, "VoskModel"));
-        //            recognizer = new VoskRecognizer(model, 16000.0f);
-        //        });
+        private async Task InitializeVoiceRecognition()
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    model = new Model(Path.Combine(Application.StartupPath, "VoskModel"));
+                    recognizer = new VoskRecognizer(model, 16000.0f);
+                });
 
-        //        waveIn = new WaveInEvent
-        //        {
-        //            DeviceNumber = 0,
-        //            WaveFormat = new WaveFormat(16000, 1)
-        //        };
+                waveIn = new WaveInEvent
+                {
+                    DeviceNumber = 0,
+                    WaveFormat = new WaveFormat(16000, 1)
+                };
 
-        //        waveIn.DataAvailable += (sender, e) =>
-        //        {
-        //            if (recognizer.AcceptWaveform(e.Buffer, e.BytesRecorded))
-        //            {
-        //                string result = recognizer.Result();
-        //                Console.WriteLine($"Recognized: {result}");
-        //                UpdateTextbox(result);
-        //            }
-        //        };
+                waveIn.DataAvailable += (sender, e) =>
+                {
+                    if (recognizer.AcceptWaveform(e.Buffer, e.BytesRecorded))
+                    {
+                        string result = recognizer.Result();
+                        Console.WriteLine($"Recognized: {result}");
+                        UpdateTextbox(result);
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing voice recognition: {ex.Message}");
+            }
+        }
 
-        //        waveIn.StartRecording();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error initializing voice recognition: {ex.Message}");
-        //    }
-        //}
-        //private void UpdateTextbox(string recognizedText)
-        //{
-        //    if (InvokeRequired)
-        //    {
-        //        Invoke(new Action(() => UpdateTextbox(recognizedText)));
-        //        return;
-        //    }
+        private void UpdateTextbox(string recognizedText)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => UpdateTextbox(recognizedText)));
+                return;
+            }
 
-        //    txtUserInput.Text = recognizedText;
-        //}
+            // Extract the recognized text from the result
+            var resultJson = JsonConvert.DeserializeObject<dynamic>(recognizedText);
+            string text = resultJson?.text ?? string.Empty; // Get the recognized text
+            text = text.Trim().ToLower();
+
+            // List of trigger keywords for sending
+            var sendCommands = new[] { "send", "transmit", "submit", "go", "okay", "confirm" };
+
+            if (sendCommands.Contains(text))
+            {
+                btnSend.PerformClick(); // Trigger send
+                txtUserInput.Clear();   // Optional: clear input after voice-send
+            }
+            else
+            {
+                txtUserInput.Text = text; // Just update the input
+            }
+        }
 
 
 
@@ -182,6 +196,8 @@ namespace ONION_Your_Personal_PlantCare_Companion
         private void TalkControl_Load(object sender, EventArgs e)
         {
             DisplayChatHistory();
+            toggleVoiceBtn.Text = "Start Listening"; // Initial text
+            toggleVoiceBtn.BackColor = Color.Green;
         }
         private void SaveChatHistory()
         {
@@ -229,7 +245,47 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        
+
+        private void attachbtn_Click(object sender, EventArgs e)
+        {
+            PlantIdentifier plantIdentifier = new PlantIdentifier();
+            plantIdentifier.ShowDialog();
+        }
+
+
+
+        private async void toggleVoiceBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!isListening)
+                {
+                    if (recognizer == null)
+                    {
+                        await InitializeVoiceRecognition();
+                    }
+
+                    waveIn.StartRecording();
+                    toggleVoiceBtn.BackColor = Color.Red;
+                    toggleVoiceBtn.Text = "Stop Listening";
+                    isListening = true;
+                }
+                else
+                {
+                    waveIn.StopRecording();
+                    toggleVoiceBtn.BackColor = Color.Green;
+                    toggleVoiceBtn.Text = "Start Listening";
+                    isListening = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while toggling voice recording: {ex.Message}");
+            }
+        }
+
+        private void clearbtn_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to clear the chat history?",
                                 "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -242,36 +298,5 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 MessageBox.Show("Chat history cleared.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        private void attachbtn_Click(object sender, EventArgs e)
-        {
-            PlantIdentifier plantIdentifier = new PlantIdentifier();
-            plantIdentifier.ShowDialog();
-        }
-
-        //private void toggleVoiceBtn_Click_1(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (!isListening)
-        //        {
-        //            // Start recording
-        //            waveIn.StartRecording();
-        //            toggleVoiceBtn.BackColor = Color.Red;
-        //            isListening = true;  // Set the flag to true indicating that we are listening
-        //        }
-        //        else
-        //        {
-        //            // Stop recording
-        //            waveIn.StopRecording();
-        //            toggleVoiceBtn.BackColor = Color.Green;
-        //            isListening = false;  // Set the flag to false indicating that we are not listening anymore
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error while toggling voice recording: {ex.Message}");
-        //    }
-        //}
     }
 }

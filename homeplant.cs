@@ -13,6 +13,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
 {
     public partial class homeplant : UserControl
     {
+        public int PlantID { get; set; }
         private bool isFormOpen = false;
         public homeplant()
         {
@@ -75,11 +76,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             return new Bitmap(100, 100);
         }
 
-        private void homeplant_DoubleClick(object sender, EventArgs e)
-        {
-            //Doubleclick doubleClickForm = new Doubleclick(PlantName, HealthPercentage, picPlant.Image, LastWatered, LastFertilized);
-            //doubleClickForm.ShowDialog();
-        }
+      
 
         private void homeplant_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -87,10 +84,12 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
             isFormOpen = true;
             using (Doubleclick doubleClickForm = new Doubleclick(
+                PlantID,
                 PlantName,
                 picPlant.Image,
                 LastWatered,
-                LastFertilized))
+                LastFertilized,
+                (int)progressBar.Value))
             {
                 doubleClickForm.ShowDialog();
             }

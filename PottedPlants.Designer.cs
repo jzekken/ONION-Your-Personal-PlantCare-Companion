@@ -34,10 +34,20 @@
             exclamationPictureBox = new PictureBox();
             button2 = new Button();
             button1 = new Button();
-            plantPictureBox = new PictureBox();
+            deadPlantPictureBox = new PictureBox();
+            unhealthyPlantPictureBox = new PictureBox();
+            pictureBox1 = new PictureBox();
+            healthyPlantPictureBox = new PictureBox();
+            babyPlantPictureBox = new PictureBox();
+            seedlingPictureBox = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)exclamationPictureBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)plantPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)deadPlantPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)unhealthyPlantPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)healthyPlantPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)babyPlantPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)seedlingPictureBox).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -48,7 +58,12 @@
             panel1.Controls.Add(exclamationPictureBox);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
-            panel1.Controls.Add(plantPictureBox);
+            panel1.Controls.Add(deadPlantPictureBox);
+            panel1.Controls.Add(unhealthyPlantPictureBox);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(healthyPlantPictureBox);
+            panel1.Controls.Add(babyPlantPictureBox);
+            panel1.Controls.Add(seedlingPictureBox);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -104,16 +119,76 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
-            // plantPictureBox
+            // deadPlantPictureBox
             // 
-            plantPictureBox.BackColor = Color.Transparent;
-            plantPictureBox.Image = (Image)resources.GetObject("plantPictureBox.Image");
-            plantPictureBox.Location = new Point(23, 0);
-            plantPictureBox.Name = "plantPictureBox";
-            plantPictureBox.Size = new Size(103, 106);
-            plantPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            plantPictureBox.TabIndex = 0;
-            plantPictureBox.TabStop = false;
+            deadPlantPictureBox.BackColor = Color.Transparent;
+            deadPlantPictureBox.Image = (Image)resources.GetObject("deadPlantPictureBox.Image");
+            deadPlantPictureBox.Location = new Point(23, 3);
+            deadPlantPictureBox.Name = "deadPlantPictureBox";
+            deadPlantPictureBox.Size = new Size(103, 106);
+            deadPlantPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            deadPlantPictureBox.TabIndex = 0;
+            deadPlantPictureBox.TabStop = false;
+            deadPlantPictureBox.Visible = false;
+            // 
+            // unhealthyPlantPictureBox
+            // 
+            unhealthyPlantPictureBox.BackColor = Color.Transparent;
+            unhealthyPlantPictureBox.Image = (Image)resources.GetObject("unhealthyPlantPictureBox.Image");
+            unhealthyPlantPictureBox.Location = new Point(23, 3);
+            unhealthyPlantPictureBox.Name = "unhealthyPlantPictureBox";
+            unhealthyPlantPictureBox.Size = new Size(103, 106);
+            unhealthyPlantPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            unhealthyPlantPictureBox.TabIndex = 0;
+            unhealthyPlantPictureBox.TabStop = false;
+            unhealthyPlantPictureBox.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(46, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(103, 106);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            pictureBox1.Visible = false;
+            // 
+            // healthyPlantPictureBox
+            // 
+            healthyPlantPictureBox.BackColor = Color.Transparent;
+            healthyPlantPictureBox.Image = (Image)resources.GetObject("healthyPlantPictureBox.Image");
+            healthyPlantPictureBox.Location = new Point(23, 3);
+            healthyPlantPictureBox.Name = "healthyPlantPictureBox";
+            healthyPlantPictureBox.Size = new Size(103, 106);
+            healthyPlantPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            healthyPlantPictureBox.TabIndex = 0;
+            healthyPlantPictureBox.TabStop = false;
+            healthyPlantPictureBox.Visible = false;
+            // 
+            // babyPlantPictureBox
+            // 
+            babyPlantPictureBox.BackColor = Color.Transparent;
+            babyPlantPictureBox.Image = (Image)resources.GetObject("babyPlantPictureBox.Image");
+            babyPlantPictureBox.Location = new Point(23, 3);
+            babyPlantPictureBox.Name = "babyPlantPictureBox";
+            babyPlantPictureBox.Size = new Size(103, 106);
+            babyPlantPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            babyPlantPictureBox.TabIndex = 0;
+            babyPlantPictureBox.TabStop = false;
+            babyPlantPictureBox.Visible = false;
+            // 
+            // seedlingPictureBox
+            // 
+            seedlingPictureBox.BackColor = Color.Transparent;
+            seedlingPictureBox.Image = (Image)resources.GetObject("seedlingPictureBox.Image");
+            seedlingPictureBox.Location = new Point(23, 0);
+            seedlingPictureBox.Name = "seedlingPictureBox";
+            seedlingPictureBox.Size = new Size(103, 106);
+            seedlingPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            seedlingPictureBox.TabIndex = 0;
+            seedlingPictureBox.TabStop = false;
             // 
             // PottedPlants
             // 
@@ -124,17 +199,27 @@
             Size = new Size(149, 149);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)exclamationPictureBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)plantPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)deadPlantPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)unhealthyPlantPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)healthyPlantPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)babyPlantPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)seedlingPictureBox).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private PictureBox plantPictureBox;
+        private PictureBox seedlingPictureBox;
         private Button button2;
         private Button button1;
         private PictureBox exclamationPictureBox;
         private Label plantNameLabel;
+        private PictureBox babyPlantPictureBox;
+        private PictureBox healthyPlantPictureBox;
+        private PictureBox deadPlantPictureBox;
+        private PictureBox unhealthyPlantPictureBox;
+        private PictureBox pictureBox1;
     }
 }

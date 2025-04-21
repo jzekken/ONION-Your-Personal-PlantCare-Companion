@@ -15,10 +15,10 @@ namespace ONION_Your_Personal_PlantCare_Companion
 {
     public partial class PlantIdentifier : Form
     {
-        private List<(string commonName, string sciName, double confidence)> _suggestions = new();
+        
         private string _imagePath;
         private readonly HttpClient _client;
-
+        
         public PlantIdentifier()
         {
             InitializeComponent();
@@ -48,9 +48,12 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 return;
             }
 
-            await LoadSuggestionsAsync(_imagePath);
+            await IdentifyPlantAsync(_imagePath);
         }
-        private async Task LoadSuggestionsAsync(string imagePath)
+
+
+
+        private async Task IdentifyPlantAsync(string imagePath)
         {
             var apiUrl = "https://api.plant.id/v2/identify";
 
@@ -63,60 +66,60 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 fileContent.Headers.Add("Content-Type", "image/jpeg");
                 content.Add(fileContent, "images", Path.GetFileName(imagePath));
 
-                var response = await _client.PostAsync(apiUrl, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    var json = JObject.Parse(jsonString);
-                    var suggestions = json["suggestions"];
-
-                    _suggestions.Clear();
-                    lstSuggestions.Items.Clear();
-
-                    foreach (var s in suggestions)
-                    {
-                        string commonName = (string)s["plant_details"]?["common_names"]?.First ?? "N/A";
-                        string sciName = (string)s["plant_details"]?["scientific_name"] ?? "Unknown";
-                        double confidence = (double?)s["probability"] ?? 0;
-
-                        _suggestions.Add((commonName, sciName, confidence));
-                        lstSuggestions.Items.Add($"{sciName} ({Math.Round(confidence * 100, 2)}%)");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("API Error: " + response.ReasonPhrase);
-                }
-            }
-        }
-        
-        private async Task<string> IdentifyPlantAsync(string imagePath)
+                // Specify the plant details as a JSON array
+                var plantDetailsArray = new JArray
         {
-            var apiUrl = "https://api.plant.id/v2/identify";
+            "common_names",
+            "url",
+            "taxonomy",
+            "health_assessment"
+        };
 
-            using (var content = new MultipartFormDataContent())
-            {
-                _client.DefaultRequestHeaders.Clear(); // clear any previous headers
-                _client.DefaultRequestHeaders.Add("Api-Key", "YgqYVC2GqcMGNNEyeqoxbIrA9HIzBlNZrDpXH7RB8votwVo1Ad"); // replace with your actual key
+                var plantDetailsJson = plantDetailsArray.ToString();
+                content.Add(new StringContent(plantDetailsJson, Encoding.UTF8, "application/json"), "plant_details");
 
-                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
-                fileContent.Headers.Add("Content-Type", "image/jpeg");
-                content.Add(fileContent, "images", Path.GetFileName(imagePath));
+                // Add the plant language
+                content.Add(new StringContent("en"), "plant_language");
 
                 var response = await _client.PostAsync(apiUrl, content);
 
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    var json = JObject.Parse(jsonString);
-                    string plantName = (string)json["suggestions"]?[0]?["plant_name"];
-                    return plantName ?? "Unknown";
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"API Error: {response.StatusCode}\n\n{errorContent}");
+                    return;
                 }
-                else
-                {
-                    return "Error: " + response.ReasonPhrase;
-                }
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                JObject json = JObject.Parse(responseBody);
+
+                // Extract suggestions from the response
+                var suggestion = json["suggestions"]?.FirstOrDefault();
+                var details = suggestion?["plant_details"];
+
+                string sciName = (string)suggestion?["plant_name"] ?? "Unknown";
+                string commonName = details?["common_names"]?.FirstOrDefault()?.ToString() ?? "N/A";
+
+                var taxonomy = details?["taxonomy"];
+                string taxonomyStr = taxonomy != null
+                    ? $"Kingdom: {taxonomy["kingdom"]}\nPhylum: {taxonomy["phylum"]}\nClass: {taxonomy["class"]}\nOrder: {taxonomy["order"]}\nFamily: {taxonomy["family"]}\nGenus: {taxonomy["genus"]}"
+                    : "Not available";
+
+                var health = details?["health_assessment"];
+                string healthStr = health != null
+                    ? $"Is Healthy: {health["is_healthy"]}\nDiseases: {string.Join(", ", health["diseases"]?.Select(d => d["name"]))}"
+                    : "Health Status: Not available";
+
+                // Get the confidence level
+                double confidence = (double?)suggestion?["probability"] ?? 0;
+                string confidenceStr = $"Confidence: {Math.Round(confidence * 100, 2)}%";
+
+                // Update the labels with fetched data
+                lblCommonName.Text = $"Common Name: {commonName}";
+                lblScientificName.Text = $"Scientific Name: {sciName}";
+                lblTaxonomy.Text = taxonomyStr;
+                lblHealth.Text = healthStr;
+                lblConfidence.Text = confidenceStr; // Add a label for confidence
             }
         }
 
@@ -125,16 +128,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
             this.Close();
         }
 
-        private async void lstSuggestions_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            int index = lstSuggestions.SelectedIndex;
-            if (index >= 0 && index < _suggestions.Count)
-            {
-                var selected = _suggestions[index];
-                lblDetails.Text = //$"Common Name: {selected.commonName}\n" +
-                                  $"Scientific Name: {selected.sciName}\n" +
-                                  $"Confidence: {Math.Round(selected.confidence * 100, 2)}%";
-            }
-        }
+       
     }
 }

@@ -75,7 +75,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         LastWatered = reader.IsDBNull(2) ? DateTime.MinValue : reader.GetDateTime(2),
                         LastFertilized = reader.IsDBNull(3) ? DateTime.MinValue : reader.GetDateTime(3),
                         WateringFrequency = reader.IsDBNull(4) ? 0 : Convert.ToInt32(reader[4]),
-                        FertilizationFrequency = reader.IsDBNull(5) ? 0 : Convert.ToInt32(reader[5]),
+                        FertilizationSchedule = reader.IsDBNull(5) ? 0 : Convert.ToInt32(reader[5]),
                        
 
                     };

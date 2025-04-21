@@ -27,8 +27,15 @@ namespace ONION_Your_Personal_PlantCare_Companion
             this.plantData = plant;
 
             plantNameLabel.Text = plant.PlantName;
+            if ((DateTime.Now - plantData.LastHealthCheck).TotalDays >= 1 &&
+                    (NeedsWatering() || NeedsFertilizing()))
+            {
+                ApplyHealthDecay();
+                UpdatePlantHealthInDatabase(); // Update health and LastHealthCheck in DB
+            }
 
             CheckPlantCareStatus();
+            UpdatePlantImage();
         }
         private void CheckPlantCareStatus()
         {
@@ -59,7 +66,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
         private bool NeedsFertilizing()
         {
-            return (DateTime.Now - plantData.LastFertilized).TotalDays >= plantData.FertilizationFrequency;
+            return (DateTime.Now - plantData.LastFertilized).TotalDays >= plantData.FertilizationSchedule;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -68,7 +75,10 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 plantData.LastWatered = DateTime.Now;
                 SavePlantAction("Watered");
-                CheckPlantCareStatus();
+                RegenerateHealth();  // Regenerate health after watering
+                ApplyHealthDecay();  // Apply decay if needed
+                UpdatePlantHealthInDatabase();  // Update health and insert history
+                  
                 MessageBox.Show("Plant watered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -125,11 +135,108 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 plantData.LastFertilized = DateTime.Now;
                 SavePlantAction("Fertilized");
+                RegenerateHealth();  // Regenerate health after fertilizing
+                ApplyHealthDecay();  // Apply decay if needed
+                UpdatePlantHealthInDatabase();  // Update health and insert history
                 MessageBox.Show("Plant fertilized successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show("The plant was fertilized within the last 24 hours. No need to fertilize it now.", "Action Not Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void RegenerateHealth()
+        {
+            if (plantData.Health < 100)
+            {
+                plantData.Health += 10;  // Example: Increase health by 10% after watering/fertilizing
+                if (plantData.Health > 100)
+                {
+                    plantData.Health = 100;  // Cap health to 100%
+                }
+            }
+        }
+
+        private void ApplyHealthDecay()
+        {
+            if (plantData.Health > 0)
+            {
+                plantData.Health -= 5;  // Example: Decrease health by 5% over time
+                if (plantData.Health < 0)
+                {
+                    plantData.Health = 0;  // Ensure health doesn't go below 0
+                }
+            }
+        }
+        private void UpdatePlantHealthInDatabase()
+        {
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string updateQuery = "UPDATE Plants SET Health = ?, LastHealthCheck = ? WHERE PlantID = ?";
+                    using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, conn))
+                    {
+                        updateCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.Health;
+                        updateCmd.Parameters.Add("?", OleDbType.Date).Value = DateTime.Now;
+                        updateCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.PlantID;
+                        updateCmd.ExecuteNonQuery();
+                    }
+
+                    string insertHistoryQuery = "INSERT INTO HealthHistory (PlantID, ActionType, HealthChange, RecordedDate) VALUES (?, ?, ?, ?)";
+                    using (OleDbCommand insertCmd = new OleDbCommand(insertHistoryQuery, conn))
+                    {
+                        insertCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.PlantID;
+                        insertCmd.Parameters.Add("?", OleDbType.VarChar).Value = "Health Updated"; // Action type
+                        insertCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.Health; // Health change
+                        insertCmd.Parameters.Add("?", OleDbType.Date).Value = DateTime.Now; // Recorded timestamp
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating plant health and inserting history: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void UpdatePlantImage()
+        {
+            // Hide all picture boxes first
+            seedlingPictureBox.Visible = false;
+            babyPlantPictureBox.Visible = false;
+            healthyPlantPictureBox.Visible = false;
+            unhealthyPlantPictureBox.Visible = false;
+            deadPlantPictureBox.Visible = false;
+
+            double plantAge = (DateTime.Now - plantData.DatePlanted).TotalDays;
+            if (plantAge < 30)
+            {
+                seedlingPictureBox.Visible = true; // Seedling stage
+            }
+            else if (plantAge < 60)
+            {
+                babyPlantPictureBox.Visible = true; // Baby plant stage
+            }
+            else
+            {
+                healthyPlantPictureBox.Visible = true; // Full-grown plant stage
+            }
+
+            // Show the appropriate health status image based on plant health
+            if (plantData.Health >= 80)
+            {
+                // Show healthy image
+                healthyPlantPictureBox.Visible = true;
+            }
+            else if (plantData.Health >= 50)
+            {
+                unhealthyPlantPictureBox.Visible = true;
+            }
+            else
+            {
+                deadPlantPictureBox.Visible = true;
             }
         }
     }

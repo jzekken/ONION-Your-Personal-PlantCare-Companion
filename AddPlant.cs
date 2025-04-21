@@ -117,8 +117,8 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
                 if (isNewPlant)
                 {
-                    query = "INSERT INTO Plants (PlantName, WateringFrequency, FertilizationSchedule, PlantImage) " +
-                            "VALUES (?, ?, ?, ?)";
+                    query = "INSERT INTO Plants (PlantName, WateringFrequency, FertilizationSchedule, PlantImage, Health, DatePlanted) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)";
                 }
                 else
                 {
@@ -142,9 +142,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         cmd.Parameters.AddWithValue("?", DBNull.Value);
                     }
 
-                    if (!isNewPlant)
+                    if (isNewPlant)
                     {
-                        cmd.Parameters.AddWithValue("?", Convert.ToInt32(plantID));  
+                        cmd.Parameters.AddWithValue("?", 100); // Initial Health
+                        cmd.Parameters.AddWithValue("?", DateTime.Now.ToString("yyyy-MM-dd")); // Date Planted
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("?", Convert.ToInt32(plantID));
                     }
 
                     cmd.ExecuteNonQuery();
@@ -171,7 +176,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                     }
 
                     
-                    string healthQuery = "INSERT INTO HealthHistory (PlantID, HealthValue, RecordedDate) VALUES (?, ?, ?)";
+                    string healthQuery = "INSERT INTO HealthHistory (PlantID, HealthChange, RecordedDate) VALUES (?, ?, ?)";
 
                     using (OleDbCommand cmd = new OleDbCommand(healthQuery, conn))
                     {
