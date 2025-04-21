@@ -61,7 +61,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Leelawadee UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 194);
+            label1.Location = new Point(6, 39);
             label1.Name = "label1";
             label1.Size = new Size(143, 62);
             label1.TabIndex = 1;
@@ -74,7 +74,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Leelawadee UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(3, 256);
+            label2.Location = new Point(6, 101);
             label2.Name = "label2";
             label2.Size = new Size(236, 41);
             label2.TabIndex = 1;
@@ -86,9 +86,9 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Leelawadee UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(3, 302);
+            label3.Location = new Point(6, 147);
             label3.Name = "label3";
-            label3.Size = new Size(451, 160);
+            label3.Size = new Size(591, 320);
             label3.TabIndex = 2;
             label3.Text = resources.GetString("label3.Text");
             // 
@@ -112,7 +112,7 @@
             panel2.Controls.Add(button1);
             panel2.Controls.Add(button3);
             panel2.Controls.Add(button2);
-            panel2.Location = new Point(3, 465);
+            panel2.Location = new Point(6, 470);
             panel2.Name = "panel2";
             panel2.Size = new Size(250, 130);
             panel2.TabIndex = 4;
@@ -130,6 +130,7 @@
             button1.Size = new Size(30, 30);
             button1.TabIndex = 3;
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button3
             // 
@@ -144,6 +145,7 @@
             button3.Size = new Size(30, 30);
             button3.TabIndex = 3;
             button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
@@ -158,6 +160,7 @@
             button2.Size = new Size(30, 30);
             button2.TabIndex = 3;
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // tableLayoutPanel1
             // 
