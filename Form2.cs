@@ -250,7 +250,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 waveIn.StartRecording();
                 toggleVoiceBtn.Text = "Disable Voice";
-                toggleVoiceBtn.BackColor = Color.Green; // Green when enabled
+                toggleVoiceBtn.BackColor = Color.FromArgb(224, 239, 204);
             }
 
             isVoiceEnabled = !isVoiceEnabled;

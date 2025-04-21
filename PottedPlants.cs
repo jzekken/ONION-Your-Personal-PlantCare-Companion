@@ -25,13 +25,28 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public void SetPlantData(Plant plant)
         {
             this.plantData = plant;
-
             plantNameLabel.Text = plant.PlantName;
-            if ((DateTime.Now - plantData.LastHealthCheck).TotalDays >= 1 &&
-                    (NeedsWatering() || NeedsFertilizing()))
+
+            double daysSinceHealthCheck = (DateTime.Now - plantData.LastHealthCheck).TotalDays;
+
+            if (daysSinceHealthCheck >= 1)
             {
-                ApplyHealthDecay();
-                UpdatePlantHealthInDatabase(); // Update health and LastHealthCheck in DB
+                double overdueWater = (DateTime.Now - plantData.LastWatered).TotalDays - plantData.WateringFrequency;
+                double overdueFertilizer = (DateTime.Now - plantData.LastFertilized).TotalDays - plantData.FertilizationSchedule;
+
+                int totalDecay = 0;
+
+                if (overdueWater > 0)
+                    totalDecay += (int)Math.Floor(overdueWater);
+
+                if (overdueFertilizer > 0)
+                    totalDecay += (int)Math.Floor(overdueFertilizer);
+
+                if (totalDecay > 0)
+                {
+                    ApplyHealthDecay(totalDecay);
+                    UpdatePlantHealthInDatabase();
+                }
             }
 
             CheckPlantCareStatus();
@@ -76,7 +91,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 plantData.LastWatered = DateTime.Now;
                 SavePlantAction("Watered");
                 RegenerateHealth();  // Regenerate health after watering
-                ApplyHealthDecay();  // Apply decay if needed
                 UpdatePlantHealthInDatabase();  // Update health and insert history
                   
                 MessageBox.Show("Plant watered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -95,24 +109,20 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 {
                     conn.Open();
 
-                    // Determine the column to update based on action type
                     string columnToUpdate = actionType == "Watered" ? "LastWatered" : "LastFertilized";
                     string updateQuery = $"UPDATE Plants SET {columnToUpdate} = ? WHERE PlantID = ?";
 
                     using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, conn))
                     {
-                        // Explicitly setting parameter types for OleDb
                         updateCmd.Parameters.Add("?", OleDbType.Date).Value = DateTime.Now;
                         updateCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.PlantID;
                         updateCmd.ExecuteNonQuery();
                     }
 
-                    // Insert into HealthHistory table
                     string insertQuery = "INSERT INTO HealthHistory (PlantID, RecordedDate, ActionType) VALUES (?, ?, ?)";
 
                     using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, conn))
                     {
-                        // Explicitly setting parameter types for OleDb
                         insertCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.PlantID;
                         insertCmd.Parameters.Add("?", OleDbType.Date).Value = DateTime.Now;
                         insertCmd.Parameters.Add("?", OleDbType.VarChar).Value = actionType;
@@ -120,7 +130,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                     }
                 }
 
-                // Refresh plant status in UI
                 CheckPlantCareStatus();
             }
             catch (Exception ex)
@@ -135,9 +144,8 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 plantData.LastFertilized = DateTime.Now;
                 SavePlantAction("Fertilized");
-                RegenerateHealth();  // Regenerate health after fertilizing
-                ApplyHealthDecay();  // Apply decay if needed
-                UpdatePlantHealthInDatabase();  // Update health and insert history
+                RegenerateHealth();
+                UpdatePlantHealthInDatabase();
                 MessageBox.Show("Plant fertilized successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -157,15 +165,12 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
         }
 
-        private void ApplyHealthDecay()
+        private void ApplyHealthDecay(int amount)
         {
-            if (plantData.Health > 0)
+            plantData.Health -= amount * 5;
+            if (plantData.Health < 0)
             {
-                plantData.Health -= 5;  // Example: Decrease health by 5% over time
-                if (plantData.Health < 0)
-                {
-                    plantData.Health = 0;  // Ensure health doesn't go below 0
-                }
+                plantData.Health = 0;
             }
         }
         private void UpdatePlantHealthInDatabase()
@@ -189,9 +194,9 @@ namespace ONION_Your_Personal_PlantCare_Companion
                     using (OleDbCommand insertCmd = new OleDbCommand(insertHistoryQuery, conn))
                     {
                         insertCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.PlantID;
-                        insertCmd.Parameters.Add("?", OleDbType.VarChar).Value = "Health Updated"; // Action type
-                        insertCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.Health; // Health change
-                        insertCmd.Parameters.Add("?", OleDbType.Date).Value = DateTime.Now; // Recorded timestamp
+                        insertCmd.Parameters.Add("?", OleDbType.VarChar).Value = "Health Updated";
+                        insertCmd.Parameters.Add("?", OleDbType.Integer).Value = plantData.Health;
+                        insertCmd.Parameters.Add("?", OleDbType.Date).Value = DateTime.Now;
                         insertCmd.ExecuteNonQuery();
                     }
                 }
@@ -203,7 +208,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
         }
         private void UpdatePlantImage()
         {
-            // Hide all picture boxes first
             seedlingPictureBox.Visible = false;
             babyPlantPictureBox.Visible = false;
             healthyPlantPictureBox.Visible = false;
@@ -213,21 +217,19 @@ namespace ONION_Your_Personal_PlantCare_Companion
             double plantAge = (DateTime.Now - plantData.DatePlanted).TotalDays;
             if (plantAge < 30)
             {
-                seedlingPictureBox.Visible = true; // Seedling stage
+                seedlingPictureBox.Visible = true;
             }
             else if (plantAge < 60)
             {
-                babyPlantPictureBox.Visible = true; // Baby plant stage
+                babyPlantPictureBox.Visible = true;
             }
             else
             {
-                healthyPlantPictureBox.Visible = true; // Full-grown plant stage
+                healthyPlantPictureBox.Visible = true;
             }
 
-            // Show the appropriate health status image based on plant health
             if (plantData.Health >= 80)
             {
-                // Show healthy image
                 healthyPlantPictureBox.Visible = true;
             }
             else if (plantData.Health >= 50)

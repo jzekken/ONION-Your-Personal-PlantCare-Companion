@@ -80,11 +80,22 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
             // List of trigger keywords for sending
             var sendCommands = new[] { "send", "transmit", "submit", "go", "okay", "confirm" };
-
+            var attachCommands = new[] { "hey onion what plant is this", "identify this plant", "what plant is this" };
+            var clearCommands = new[] { "clear message", "delete chat", "erase chat" };
             if (sendCommands.Contains(text))
             {
                 btnSend.PerformClick(); // Trigger send
                 txtUserInput.Clear();   // Optional: clear input after voice-send
+            }
+            else if (attachCommands.Contains(text))
+            {
+                attachbtn.PerformClick();
+                txtUserInput.Clear();
+            }
+            else if (clearCommands.Contains(text))
+            {
+                clearbtn.PerformClick();
+                txtUserInput.Clear();
             }
             else
             {
@@ -196,8 +207,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         private void TalkControl_Load(object sender, EventArgs e)
         {
             DisplayChatHistory();
-            toggleVoiceBtn.Text = "Start Listening"; // Initial text
-            toggleVoiceBtn.BackColor = Color.Green;
+            
         }
         private void SaveChatHistory()
         {
@@ -268,14 +278,13 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
                     waveIn.StartRecording();
                     toggleVoiceBtn.BackColor = Color.Red;
-                    toggleVoiceBtn.Text = "Stop Listening";
+                    
                     isListening = true;
                 }
                 else
                 {
                     waveIn.StopRecording();
-                    toggleVoiceBtn.BackColor = Color.Green;
-                    toggleVoiceBtn.Text = "Start Listening";
+                    toggleVoiceBtn.BackColor = Color.FromArgb(228, 239, 231);
                     isListening = false;
                 }
             }

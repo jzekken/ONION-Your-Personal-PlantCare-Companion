@@ -10,15 +10,20 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using AForge.Video;
+using AForge.Video.DirectShow;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
     public partial class PlantIdentifier : Form
     {
-        
+
         private string _imagePath;
         private readonly HttpClient _client;
-        
+        private FilterInfoCollection videoDevices;
+        private VideoCaptureDevice videoSource;
+        private Bitmap currentFrame;
+        private bool isCameraRunning = false;
         public PlantIdentifier()
         {
             InitializeComponent();
@@ -60,7 +65,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             using (var content = new MultipartFormDataContent())
             {
                 _client.DefaultRequestHeaders.Clear();
-                _client.DefaultRequestHeaders.Add("Api-Key", "YgqYVC2GqcMGNNEyeqoxbIrA9HIzBlNZrDpXH7RB8votwVo1Ad");
+                _client.DefaultRequestHeaders.Add("Api-Key", "mRtKzD2V4eaI9hRpxSzvV7UlXKF7SFCKJk84OWy7YPBE7f2rrY");
 
                 var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
                 fileContent.Headers.Add("Content-Type", "image/jpeg");
@@ -119,7 +124,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 lblScientificName.Text = $"Scientific Name: {sciName}";
                 lblTaxonomy.Text = taxonomyStr;
                 lblHealth.Text = healthStr;
-                lblConfidence.Text = confidenceStr; // Add a label for confidence
+                lblConfidence.Text = confidenceStr; 
             }
         }
 
@@ -128,6 +133,58 @@ namespace ONION_Your_Personal_PlantCare_Companion
             this.Close();
         }
 
-       
+        private void cambtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!isCameraRunning)
+                {
+                    videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+                    if (videoDevices.Count == 0)
+                    {
+                        MessageBox.Show("No camera found!");
+                        return;
+                    }
+
+                    videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
+                    videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
+                    videoSource.Start();
+                    isCameraRunning = true;
+                }
+                else
+                {
+                    if (currentFrame != null)
+                    {
+                        // Save the image to a temporary path
+                        string tempPath = Path.Combine(Path.GetTempPath(), "captured_plant.jpg");
+                        currentFrame.Save(tempPath, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                        // Update _imagePath so it can be used by IdentifyPlantAsync
+                        _imagePath = tempPath;
+
+                        // Display the image
+                        pictureBox.Image = (Bitmap)currentFrame.Clone();
+                    }
+
+                    if (videoSource != null && videoSource.IsRunning)
+                    {
+                        videoSource.SignalToStop();
+                        videoSource.NewFrame -= video_NewFrame;
+                    }
+
+                    isCameraRunning = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Camera error: " + ex.Message);
+            }
+        }
+        private void video_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            currentFrame = (Bitmap)eventArgs.Frame.Clone();
+            pictureBox.Image = (Bitmap)currentFrame.Clone();
+        }
     }
 }

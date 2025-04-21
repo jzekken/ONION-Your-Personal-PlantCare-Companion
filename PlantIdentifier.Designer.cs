@@ -34,9 +34,11 @@
             lblTaxonomy = new Label();
             lblConfidence = new Label();
             lblScientificName = new Label();
+            label1 = new Label();
             lblCommonName = new Label();
             exitbtn = new Button();
             btnIdentifyPlant = new Button();
+            cambtn = new Button();
             btnUpload = new Button();
             pictureBox = new PictureBox();
             panel1.SuspendLayout();
@@ -50,9 +52,11 @@
             panel1.Controls.Add(lblTaxonomy);
             panel1.Controls.Add(lblConfidence);
             panel1.Controls.Add(lblScientificName);
+            panel1.Controls.Add(label1);
             panel1.Controls.Add(lblCommonName);
             panel1.Controls.Add(exitbtn);
             panel1.Controls.Add(btnIdentifyPlant);
+            panel1.Controls.Add(cambtn);
             panel1.Controls.Add(btnUpload);
             panel1.Controls.Add(pictureBox);
             panel1.Location = new Point(12, 12);
@@ -64,7 +68,7 @@
             // 
             lblHealth.AutoSize = true;
             lblHealth.Font = new Font("Leelawadee UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblHealth.Location = new Point(318, 329);
+            lblHealth.Location = new Point(609, 317);
             lblHealth.Name = "lblHealth";
             lblHealth.Size = new Size(0, 38);
             lblHealth.TabIndex = 2;
@@ -73,7 +77,7 @@
             // 
             lblTaxonomy.AutoSize = true;
             lblTaxonomy.Font = new Font("Leelawadee UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTaxonomy.Location = new Point(13, 329);
+            lblTaxonomy.Location = new Point(316, 309);
             lblTaxonomy.Name = "lblTaxonomy";
             lblTaxonomy.Size = new Size(0, 38);
             lblTaxonomy.TabIndex = 2;
@@ -82,7 +86,7 @@
             // 
             lblConfidence.AutoSize = true;
             lblConfidence.Font = new Font("Leelawadee UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblConfidence.Location = new Point(318, 135);
+            lblConfidence.Location = new Point(318, 160);
             lblConfidence.Name = "lblConfidence";
             lblConfidence.Size = new Size(0, 38);
             lblConfidence.TabIndex = 2;
@@ -91,16 +95,26 @@
             // 
             lblScientificName.AutoSize = true;
             lblScientificName.Font = new Font("Leelawadee UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblScientificName.Location = new Point(318, 70);
+            lblScientificName.Location = new Point(318, 107);
             lblScientificName.Name = "lblScientificName";
             lblScientificName.Size = new Size(0, 38);
             lblScientificName.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Leelawadee UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(13, 6);
+            label1.Name = "label1";
+            label1.Size = new Size(244, 38);
+            label1.TabIndex = 2;
+            label1.Text = "What plant is this?";
             // 
             // lblCommonName
             // 
             lblCommonName.AutoSize = true;
             lblCommonName.Font = new Font("Leelawadee UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCommonName.Location = new Point(318, 6);
+            lblCommonName.Location = new Point(318, 58);
             lblCommonName.Name = "lblCommonName";
             lblCommonName.Size = new Size(0, 38);
             lblCommonName.TabIndex = 2;
@@ -121,7 +135,7 @@
             // 
             btnIdentifyPlant.FlatStyle = FlatStyle.Flat;
             btnIdentifyPlant.Image = (Image)resources.GetObject("btnIdentifyPlant.Image");
-            btnIdentifyPlant.Location = new Point(193, 282);
+            btnIdentifyPlant.Location = new Point(193, 361);
             btnIdentifyPlant.Name = "btnIdentifyPlant";
             btnIdentifyPlant.Size = new Size(94, 44);
             btnIdentifyPlant.TabIndex = 1;
@@ -130,11 +144,24 @@
             btnIdentifyPlant.UseVisualStyleBackColor = true;
             btnIdentifyPlant.Click += btnIdentifyPlant_Click;
             // 
+            // cambtn
+            // 
+            cambtn.FlatStyle = FlatStyle.Flat;
+            cambtn.Image = (Image)resources.GetObject("cambtn.Image");
+            cambtn.Location = new Point(101, 311);
+            cambtn.Name = "cambtn";
+            cambtn.Size = new Size(113, 44);
+            cambtn.TabIndex = 1;
+            cambtn.Text = " Camera";
+            cambtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            cambtn.UseVisualStyleBackColor = true;
+            cambtn.Click += cambtn_Click;
+            // 
             // btnUpload
             // 
             btnUpload.FlatStyle = FlatStyle.Flat;
             btnUpload.Image = (Image)resources.GetObject("btnUpload.Image");
-            btnUpload.Location = new Point(13, 282);
+            btnUpload.Location = new Point(13, 361);
             btnUpload.Name = "btnUpload";
             btnUpload.Size = new Size(113, 44);
             btnUpload.TabIndex = 1;
@@ -146,7 +173,7 @@
             // pictureBox
             // 
             pictureBox.Image = (Image)resources.GetObject("pictureBox.Image");
-            pictureBox.Location = new Point(13, 3);
+            pictureBox.Location = new Point(13, 58);
             pictureBox.Name = "pictureBox";
             pictureBox.Size = new Size(274, 247);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -182,5 +209,7 @@
         private Label lblTaxonomy;
         private Label lblConfidence;
         private Label lblScientificName;
+        private Label label1;
+        private Button cambtn;
     }
 }
