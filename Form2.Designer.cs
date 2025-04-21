@@ -338,6 +338,7 @@
             Controls.Add(mainPanel);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 600);
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
