@@ -65,13 +65,13 @@ namespace ONION_Your_Personal_PlantCare_Companion
             using (var content = new MultipartFormDataContent())
             {
                 _client.DefaultRequestHeaders.Clear();
-                _client.DefaultRequestHeaders.Add("Api-Key", "mRtKzD2V4eaI9hRpxSzvV7UlXKF7SFCKJk84OWy7YPBE7f2rrY");
+                _client.DefaultRequestHeaders.Add("Api-Key", Properties.Settings.Default.PlantIDApiKey);
 
                 var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
                 fileContent.Headers.Add("Content-Type", "image/jpeg");
                 content.Add(fileContent, "images", Path.GetFileName(imagePath));
 
-                // Specify the plant details as a JSON array
+                
                 var plantDetailsArray = new JArray
         {
             "common_names",
@@ -83,7 +83,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 var plantDetailsJson = plantDetailsArray.ToString();
                 content.Add(new StringContent(plantDetailsJson, Encoding.UTF8, "application/json"), "plant_details");
 
-                // Add the plant language
+                
                 content.Add(new StringContent("en"), "plant_language");
 
                 var response = await _client.PostAsync(apiUrl, content);
@@ -98,7 +98,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 string responseBody = await response.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(responseBody);
 
-                // Extract suggestions from the response
+                
                 var suggestion = json["suggestions"]?.FirstOrDefault();
                 var details = suggestion?["plant_details"];
 
@@ -115,11 +115,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
                     ? $"Is Healthy: {health["is_healthy"]}\nDiseases: {string.Join(", ", health["diseases"]?.Select(d => d["name"]))}"
                     : "Health Status: Not available";
 
-                // Get the confidence level
+                
                 double confidence = (double?)suggestion?["probability"] ?? 0;
                 string confidenceStr = $"Confidence: {Math.Round(confidence * 100, 2)}%";
 
-                // Update the labels with fetched data
+               
                 lblCommonName.Text = $"Common Name: {commonName}";
                 lblScientificName.Text = $"Scientific Name: {sciName}";
                 lblTaxonomy.Text = taxonomyStr;
@@ -156,14 +156,14 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 {
                     if (currentFrame != null)
                     {
-                        // Save the image to a temporary path
+                        
                         string tempPath = Path.Combine(Path.GetTempPath(), "captured_plant.jpg");
                         currentFrame.Save(tempPath, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                        // Update _imagePath so it can be used by IdentifyPlantAsync
+                        
                         _imagePath = tempPath;
 
-                        // Display the image
+                        
                         pictureBox.Image = (Bitmap)currentFrame.Clone();
                     }
 

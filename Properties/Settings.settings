@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ONION_Your_Personal_PlantCare_Companion.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="GoogleAPIKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AIzaSyD4M-16yXP2gaFFNKHS1EJqDpzatCqXJqM</Value>
+    </Setting>
+    <Setting Name="PlantIDApiKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mRtKzD2V4eaI9hRpxSzvV7UlXKF7SFCKJk84OWy7YPBE7f2rrY</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

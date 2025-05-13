@@ -91,7 +91,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         string result = recognizer.Result();
                         Console.WriteLine($"Recognized: {result}");
 
-                        if (result.Contains("hey onion") || result.Contains("wake up") || result.Contains("without you cover") || result.Contains("hey nigga"))
+                        if (result.Contains("hey onion") || result.Contains("wake up"))
                         {
                             
                             Invoke(new Action(() =>

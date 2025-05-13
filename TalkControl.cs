@@ -14,11 +14,13 @@ using NAudio.Wave;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
+
     public partial class TalkControl : UserControl
     {
         private static readonly HttpClient client = new HttpClient();
-        private const string API_KEY = "AIzaSyD4M-16yXP2gaFFNKHS1EJqDpzatCqXJqM";
-        private const string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
+        private readonly string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + Properties.Settings.Default.GoogleAPIKey;
+
+
 
         private List<(string sender, string message)> chatHistory = new List<(string, string)>();
         private readonly string historyFilePath = Path.Combine(Application.StartupPath, "chatHistory.json");
@@ -31,7 +33,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             InitializeComponent();
             LoadChatHistory();
-
+            
         }
         private async Task InitializeVoiceRecognition()
         {
