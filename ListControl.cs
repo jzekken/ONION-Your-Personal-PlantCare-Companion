@@ -23,16 +23,13 @@ namespace ONION_Your_Personal_PlantCare_Companion
         public ListControl()
         {
             InitializeComponent();
-
             InitializeDatabase();
             LoadPlants();
-
         }
         private void InitializeDatabase()
         {
             try
             {
-
                 myConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Users\\ACER ASPIRE 3\\source\\repos\\ONION-Your-Personal-PlantCare-Companion\\Resources\\PlantData.accdb\"");
 
                 string query = @"SELECT Plants.PlantID, Plants.PlantName, Plants.WateringFrequency, 

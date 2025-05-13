@@ -12,7 +12,6 @@ using NAudio.Wave;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-
     public partial class Form2 : BaseForm
     {
         private Button activeButton;
@@ -26,11 +25,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
             InitializeComponent();
             this.Opacity = 0;
             fadeInTimer.Start();
-            timer.Interval = 1000; // 1000 milliseconds = 1 second
+            timer.Interval = 1000; 
             timer.Tick += timer_Tick;
-            timer.Start(); // Start the timer
+            timer.Start(); 
 
-            // Optional: Set initial date and time
+          
             lblDateTime.Text = DateTime.Now.ToString("F");
             EnableDoubleBuffering();
             LoadUserControl(new HomeControl1(), homebtn);
@@ -79,10 +78,9 @@ namespace ONION_Your_Personal_PlantCare_Companion
         }
         private void HandleVoiceCommand(string command)
         {
-            // Convert the recognized command to lowercase
+            
             command = command.ToLower();
-
-            // Use Invoke to ensure UI updates happen on the main thread
+            
             if (InvokeRequired)
             {
                 Invoke(new Action(() => HandleVoiceCommand(command)));
@@ -174,10 +172,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
             activeButton = clickedButton;
         }
 
-
-
-
-
         private void homebtn_Click(object sender, EventArgs e)
         {
             LoadUserControl(new HomeControl1(), homebtn);
@@ -244,7 +238,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
             {
                 waveIn.StopRecording();
                 toggleVoiceBtn.Text = "Enable Voice";
-                toggleVoiceBtn.BackColor = Color.Red; // Red when disabled
+                toggleVoiceBtn.BackColor = Color.Red; 
             }
             else
             {
@@ -260,11 +254,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             if (this.Opacity < 1)
             {
-                this.Opacity += 0.02; // Adjust this value for faster/slower fade
+                this.Opacity += 0.02; 
             }
             else
             {
-                fadeInTimer.Stop(); // Stop the timer once the form is fully visible
+                fadeInTimer.Stop(); 
             }
         }
 

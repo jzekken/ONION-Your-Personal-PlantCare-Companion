@@ -17,7 +17,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
 {
     public partial class PlantIdentifier : Form
     {
-
         private string _imagePath;
         private readonly HttpClient _client;
         private FilterInfoCollection videoDevices;
@@ -55,8 +54,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
 
             await IdentifyPlantAsync(_imagePath);
         }
-
-
 
         private async Task IdentifyPlantAsync(string imagePath)
         {

@@ -11,7 +11,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
         private WaveInEvent waveIn;
         private VoskRecognizer recognizer;
         private Model model;
-        
 
         public Form1()
         {
@@ -46,7 +45,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
         }
 
-        
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);

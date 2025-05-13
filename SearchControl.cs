@@ -11,7 +11,6 @@ using System.Data.OleDb;
 
 namespace ONION_Your_Personal_PlantCare_Companion
 {
-
     public partial class SearchControl : BaseUserControl
     {
         private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ACER ASPIRE 3\Source\Repos\ONION-Your-Personal-PlantCare-Companion\Resources\PlantData.accdb;";
@@ -75,8 +74,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                                 ScientificName = reader["ScientificName"].ToString()
                             };
 
-
-                            // Add double-click event
                             string plantID = reader["PlantID"].ToString();
                             resultItem.ResultDoubleClicked += (s, args) =>
                             {
@@ -108,7 +105,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         }
         private void ShowPlantDetails(string plantID)
         {
-            // Query the database for full plant details
+            
             string query = @"SELECT PlantID, CommonName, ScientificName, 
                              WateringFrequency, FertilizationFrequency, Description,
                              OptimalTemperature, SunlightRequirement, SoilType, Height, 
@@ -127,9 +124,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         if (reader.Read())
                         {
                             flowLayoutPanel2.Visible = true;
-                            //label1.Visible = true;
-                            //label2.Visible = true;
-                            //label3.Visible = true;
                             lblCommonName.Text = $"Common Name: {reader["CommonName"] ?? "N/A"}";
                             lblScientificName.Text = $"Scientific Name: {reader["ScientificName"] ?? "N/A"}";
                             lblWateringFrequency.Text = $"Watering: {reader["WateringFrequency"] ?? "N/A"}";

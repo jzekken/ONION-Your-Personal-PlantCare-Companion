@@ -19,9 +19,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
     {
         private static readonly HttpClient client = new HttpClient();
         private readonly string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + Properties.Settings.Default.GoogleAPIKey;
-
-
-
         private List<(string sender, string message)> chatHistory = new List<(string, string)>();
         private readonly string historyFilePath = Path.Combine(Application.StartupPath, "chatHistory.json");
 
@@ -75,19 +72,17 @@ namespace ONION_Your_Personal_PlantCare_Companion
                 return;
             }
 
-            // Extract the recognized text from the result
             var resultJson = JsonConvert.DeserializeObject<dynamic>(recognizedText);
-            string text = resultJson?.text ?? string.Empty; // Get the recognized text
+            string text = resultJson?.text ?? string.Empty; 
             text = text.Trim().ToLower();
 
-            // List of trigger keywords for sending
             var sendCommands = new[] { "send", "transmit", "submit", "go", "okay", "confirm" };
             var attachCommands = new[] { "hey onion what plant is this", "identify this plant", "what plant is this" };
             var clearCommands = new[] { "clear message", "delete chat", "erase chat" };
             if (sendCommands.Contains(text))
             {
-                btnSend.PerformClick(); // Trigger send
-                txtUserInput.Clear();   // Optional: clear input after voice-send
+                btnSend.PerformClick(); 
+                txtUserInput.Clear();   
             }
             else if (attachCommands.Contains(text))
             {
@@ -101,16 +96,12 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
             else
             {
-                txtUserInput.Text = text; // Just update the input
+                txtUserInput.Text = text; 
             }
         }
 
-
-
         private async void button1_Click(object sender, EventArgs e)
         {
-
-
             string userMessage = txtUserInput.Text.Trim();
             if (string.IsNullOrEmpty(userMessage)) return;
 
@@ -161,9 +152,7 @@ namespace ONION_Your_Personal_PlantCare_Companion
         {
             try
             {
-
                 var chatContext = new List<object>();
-
 
                 foreach (var (sender, msg) in chatHistory.TakeLast(10))
                 {
@@ -173,7 +162,6 @@ namespace ONION_Your_Personal_PlantCare_Companion
                         parts = new[] { new { text = msg } }
                     });
                 }
-
 
                 chatContext.Add(new
                 {
@@ -257,15 +245,11 @@ namespace ONION_Your_Personal_PlantCare_Companion
             }
         }
 
-        
-
         private void attachbtn_Click(object sender, EventArgs e)
         {
             PlantIdentifier plantIdentifier = new PlantIdentifier();
             plantIdentifier.ShowDialog();
         }
-
-
 
         private async void toggleVoiceBtn_Click(object sender, EventArgs e)
         {
